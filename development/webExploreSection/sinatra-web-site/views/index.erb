@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>This Pervasive Day</title>
+
+        <script src="javascript/video.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="css/video-js.css" type="text/css" media="screen" title="Video JS" charset="utf-8">
+        
+        <link type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+
+    </head>
+    <body>
+
+        <!-- Use VideoJS http://videojs.com -->
+        <div class="video-js-box">
+            <!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody -->
+            <!--<video class="video-js" width="640" height="360" controls autoplay poster="graphics/<%= @video_filename %>Poster.png">-->
+            <video id="the_video" class="video-js" width="640" height="360" controls poster="graphics/<%= @video_filename %>Poster.png">
+                <!-- mp4 needs to go first due to bug in iPad which only recognises the first entry -->
+                <source src="video/<%= @video_filename %>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+                <source src="video/<%= @video_filename %>.webm" type='video/webm; codecs="vp8, vorbis"' />
+                <source src="video/<%= @video_filename %>.ogv" type='video/ogg; codecs="theora, vorbis"' />
+                <!-- Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. -->
+                <object class="vjs-flash-fallback" width="640" height="360" type="application/x-shockwave-flash"
+                data="flowplayer/flowplayer-3.2.5.swf">
+                <param name="movie" value="flowplayer/flowplayer-3.2.5.swf" />
+                <param name="allowfullscreen" value="true" />
+                <!-- This next line is problematic because it uses relative paths that could break if flowplayer, the videos or video stills are moved. Can't find a way to add nice paths to the flash string -->
+                <param name="flashvars" value='config={"playlist":["../graphics/<%= @video_filename %>Poster.png", {"url": "../video/<%= @video_filename %>.mp4","autoPlay":true,"autoBuffering":true}]}' />
+                <!-- Image Fallback. Typically the same as the poster image. -->
+                <img src="graphics/videoScreenshot.png" width="640" height="360" alt="Poster Image"
+                title="No video playback capabilities." />
+                </object>
+            </video>
+            <!-- Download links provided for devices that can't play video in the browser. -->
+            <!-- <p class="vjs-no-video"><strong>Download Video:</strong> -->
+            <!-- <a href="http://video-js.zencoder.com/oceans-clip.mp4">MP4</a>, -->
+            <!-- <a href="http://video-js.zencoder.com/oceans-clip.webm">WebM</a>, -->
+            <!-- <a href="http://video-js.zencoder.com/oceans-clip.ogv">Ogg</a><br> -->
+            <!-- </p> -->
+        </div>
+        <!-- End VideoJS -->
+
+        <!-- User feedback forms -->
+        <div id="user_feedback_yes_no">
+            <p>Is this user heaven or user hell?</p>
+        </div>
+
+    </body>
+    
+    
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            
+
+            // Add VideoJS to all video tags on the page when the DOM is ready
+            //VideoJS.setupAllWhenReady();
+            //VideoJS.setupAllWhenReady();
+            var video_player = VideoJS.setup("the_video");	
+            video_player.play();
+            
+            // What happens when the video finishes
+            $('video').bind('ended', function() { $("#user_feedback_yes_no").dialog("open"); } ); 
+            
+            // Feedback forms
+            //$("#user_feedback_yes_no").dialog({ buttons: { "Ok": function() { $(this).dialog("close"); } } });
+            $("#user_feedback_yes_no").dialog({ buttons: { "Heaven": function() { $(this).dialog("close"); }, "Hell": function() { $(this).dialog("close"); } }, autoOpen: false, closeOnEscape: false, draggable: false, modal: true, title: 'Heaven or Hell?', resizable: false, show: 'scale'} );
+            
+            //$("#user_feedback_yes_no").dialog("open");
+            
+            //alert("This Pervasive Day");
+        });
+    
+        
+        
+    </script>
+</html>
