@@ -9,6 +9,7 @@ public class thispervasiveday extends AndARActivity {
     
 	CustomObject someObject;
 	VideoObject testVideoObject;
+	TexturedCubeObject texturedCubeObject;
 	ARToolkit artoolkit;
 	
 	/** Called when the activity is first created. */
@@ -22,14 +23,28 @@ public class thispervasiveday extends AndARActivity {
 			//register a object for each marker type
 			artoolkit = super.getArtoolkit();
 			
-			testVideoObject = new VideoObject("test", "patt.hiro", 80.0, new double[]{0,0});
+//			testVideoObject = new VideoObject("test", "patt.hiro", 80.0, new double[]{0,0});
+//			artoolkit.registerARObject(testVideoObject);
+//			testVideoObject = new VideoObject("test", "android.patt", 80.0, new double[]{0,0});
+//			artoolkit.registerARObject(testVideoObject);
+//			testVideoObject = new VideoObject("test", "barcode.patt", 80.0, new double[]{0,0});
+//			artoolkit.registerARObject(testVideoObject);
+			
+//			texturedCubeObject = new TexturedCubeObject(this, "test", "patt.hiro", 80.0, new double[]{0,0});
+//			artoolkit.registerARObject(texturedCubeObject);
+//			texturedCubeObject = new TexturedCubeObject(this, "test", "android.patt", 80.0, new double[]{0,0});
+//			artoolkit.registerARObject(texturedCubeObject);
+//			texturedCubeObject = new TexturedCubeObject(this, "test", "barcode.patt", 80.0, new double[]{0,0});
+//			artoolkit.registerARObject(texturedCubeObject);
+			
+			testVideoObject = new VideoObject(this, "test", "patt.hiro", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(testVideoObject);
-			//testVideoObject = new VideoObject("test", "android.patt", 80.0, new double[]{0,0});
-			//artoolkit.registerARObject(testVideoObject);
-			testVideoObject = new VideoObject("test", "android.patt", 80.0, new double[]{0,0});
+			testVideoObject = new VideoObject(this, "test", "android.patt", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(testVideoObject);
-			testVideoObject = new VideoObject("test", "barcode.patt", 80.0, new double[]{0,0});
+			testVideoObject = new VideoObject(this, "test", "barcode.patt", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(testVideoObject);
+
+			
 		} catch (AndARException ex){
 			//handle the exception, that means: show the user what happened
 			System.out.println("AndARException Exception: " + ex.getMessage());
