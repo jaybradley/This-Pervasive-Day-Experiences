@@ -1,0 +1,48 @@
+// What happens when the video finishes
+
+$('video').bind('ended', function() { $("#user_feedback").dialog("open"); } ); // just one call to this should suffice for each video ending
+
+<% if @video_filename == "test1" %> // ******************************************************
+
+    // show a question
+    $("#user_feedback").dialog({ buttons: { "Heaven": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); nextVideo(); }, "Hell": function() { $(this).dialog("close"); submitQuestionResults("Hell"); nextVideo();} }, autoOpen: false, closeOnEscape: false, draggable: false, modal: true, title: 'Heaven or Hell (first question)?', resizable: false, show: 'scale'} );
+
+    // The anwer submission function can be set differently for each question here as it will change as the question changes
+    function submitQuestionResults(user_answer) {
+        //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
+        $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+    }
+    
+<% elsif @video_filename == "test2" %> // ******************************************************
+
+    // show a question
+    $("#user_feedback").dialog({ buttons: { "Heaven": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); nextVideo(); }, "Hell": function() { $(this).dialog("close"); submitQuestionResults("Hell"); nextVideo();} }, autoOpen: false, closeOnEscape: false, draggable: false, modal: true, title: 'Heaven or Hell (second question)?', resizable: false, show: 'scale'} );
+
+    // The anwer submission function can be set differently for each question here as it will change as the question changes
+    function submitQuestionResults(user_answer) {
+        //alert("Submitting results for question: <%= @video_filename %>");
+        $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+    }
+    
+<% elsif @video_filename == "test3" %> // ******************************************************
+
+    // show a question
+    $("#user_feedback").dialog({ buttons: { "Yes": function() { $(this).dialog("close"); submitQuestionResults("Yes"); nextVideo(); }, "No": function() { $(this).dialog("close"); submitQuestionResults("No"); nextVideo();} }, autoOpen: false, closeOnEscape: false, draggable: false, modal: true, title: 'Yes or No (third question)?', resizable: false, show: 'scale'} );
+
+    // The anwer submission function can be set differently for each question here as it will change as the question changes
+    function submitQuestionResults(user_answer) {
+        //alert("Submitting results for question: <%= @video_filename %>");
+        $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+    }
+    
+
+<% end %>
+
+
+<% if @last_video == false %>
+    current_video_index += 1;
+<% else %>
+    // should finish here
+    //current_video_index = 0; // round and round
+    current_video_index += 1; // over the end
+<% end %>

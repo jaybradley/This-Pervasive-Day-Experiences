@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>This Pervasive Day</title>
+        
+        <link type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+        
+        <script src="/javascript/highcharts/highcharts.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+
+
+        <div id="test1_chart_container">
+        </div>
+
+        <div id="test2_chart_container" >
+        </div>
+        
+        <div id="test3_chart_container">
+        </div>
+
+        <div id="test4_chart_container">
+        </div>
+
+    </body>
+    
+    
+    <script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+
+        // load charts
+        $.getScript('/charts/test1', function() {});
+    
+        $.getScript('/charts/test2', function() {});
+        
+        $.getScript('/charts/test3', function() {});
+        
+        $.getScript('/charts/test4', function() {});
+       
+           
+    });
+   
+   
+   
+         
+    </script>
+</html>

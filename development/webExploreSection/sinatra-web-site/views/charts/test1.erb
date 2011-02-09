@@ -1,0 +1,34 @@
+var <%= params[:chart_name] %>_chart;
+
+<%= params[:chart_name] %>_chart = new Highcharts.Chart({
+    chart: {
+        renderTo: '<%= params[:chart_name] %>_chart_container',
+        defaultSeriesType: 'pie',
+        marginRight: 130,
+        marginBottom: 25
+    },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: 'First Question',
+        x: -50 //center
+    },
+    subtitle: {
+        text: 'Heaven or Hell?',
+        x: -50
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.point.name +'</b><br/>'+ this.y +'%';
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Heaven or Hell',
+        data: [
+            { name: 'Heaven', y: <%= @heaven_percentage %>, color: '#085788' },
+            { name: 'Hell', y: <%= @hell_percentage %>, color: '#873908' }
+        ]
+    }]
+});

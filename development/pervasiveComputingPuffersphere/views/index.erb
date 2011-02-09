@@ -6,9 +6,18 @@
         <link type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/javascript/raphael-min.js"></script>
 
     </head>
     <body>
+        <div id="map">
+            <!--img src="graphics/panoramic.jpg" width="1050">-->
+        </div>
+        
+        <!--<canvas id="map" width="1000" height="500">
+            <p>Your browser doesn't support canvas.</p>
+        </canvas>-->
+    
         <p id="queue_info">Queue Info</p>
         <p id="photo_info">Info</p>
         <p id="queue_length">Queue length</p>
@@ -17,26 +26,92 @@
     
     
     <script type="text/javascript" charset="utf-8">
+        
+        //var mapContext;
+        var paper;
+        var lastX = -9999;
+        var lastY = -9999;
+        
         $(document).ready(function(){
             //alert("This Pervasive Day");
             
             $("#photo_info").text("The DOM is now loaded and can be manipulated.");
             
+            // draw the map on the canvas
+            //var example = document.getElementById('map');
+            //mapContext = example.getContext('2d');
+            paper = Raphael("map", 1000, 500);
+            paper.image("graphics/panoramic.jpg", 0, 0, 1000, 500);            
+//            var mapImage = new Image();
+ //           // the map is equirectangular
+//            mapImage.src = "graphics/panoramic.jpg";
+//            mapImage.onload = function() { 
+//                mapContext.drawImage(mapImage, 0, 0, 1000, 500);
+//                mapContext.fillStyle = "#ffff00";
+    
+                // draw test lat long point from http://www.infoplease.com/ipa/A0001769.html
+                // try edinburgh at Edinburgh 55.9501755, -3.1875359
+                // new york 40.7143528, -74.0059731
+                // hawaii 21.0649811, -157.6718958
+                // oslo 59.913032, 10.752334
+                // cape town -33.924788, 18.429916
+                
+//            };
+
+
+            
             events_queue = $({});
             
-            setInterval( get_flickr_events, 10000 );
-            get_flickr_events(); // start off with an immediate call
+            //setInterval( get_flickr_events, 10000 );
+            //get_flickr_events(); // start off with an immediate call
             setInterval( get_twitter_events, 5000 );
             
-            
-            
         });
+
+        
+        function plot_point(latitude, longitude) {
+            // the map is equirectangular this ocnversion only works for that type of projection obviously
+            // http://labs.gerbenrobijn.nl/2010/08/30/as3-latitude-and-longitude-positioning-in-a-mercator-and-equirectangular-projection/
+            var convertedX = ((longitude + 180.0) * (1000.0  / 360.0));
+            var convertedY = (((latitude * -1.0) + 90.0) * (500.0  / 180.0));
+            
+            // add slight randomness
+            convertedX += randBetween0And(8) - 4;
+            convertedY += randBetween0And(8) - 4;
+            
+            
+            //mapContext.fillRect(convertedX - 2, convertedY - 2, 4, 4);
+            var p = paper.circle(convertedX, convertedY, 15 + randBetween0And(10));
+            p.attr("fill", "#fafafa");
+            p.attr("stroke", "#ffffff");
+            p.attr("fill-opacity", 0.5);
+            p.attr("stroke-opacity", 0.1);
+            p.animate({scale: 10}, 1000, '<', function() {
+                    this.animate({scale: 1}, 2000, 'elastic', function() {
+                        this.animate({scale: 0, "fill-opacity": 0, "stroke-opacity": 0}, 100000, '>', function() {
+                            this.hide();
+                        });
+                    });
+                }
+            );
+            
+            if(lastX != -9999) {
+                //l = paper.path("M " + lastX.toString() + " " + lastY.toString() + " " + convertedX + " " + convertedY);
+                //l.attr("stroke", "#ffffff");
+                //l.attr("stroke-opacity", 0.5);
+                //l.animate({rotation: 360}, 2000, 'bounce'); 
+            }
+            lastX = convertedX;
+            lastY = convertedY;
+        }
+
     
         function get_flickr_events() {
             $.getJSON("/get_flickr_events", receive_flickr_events);
         }
         
         function get_twitter_events() {
+            //alert("get_twitter_events");
             $.getJSON("/get_twitter_events", receive_twitter_events);
         }
         
@@ -56,6 +131,7 @@
         }
         
         function receive_twitter_events(events_info) {
+            //alert("receive_twitter_events");
             var queue_needs_restarting = false;
             if(events_queue.queue("test_queue").length == 0) {
                 //alert("Events queue is empty will restart processing the queue");
@@ -72,20 +148,28 @@
 
         
         function add_event_to_queue(event_index, event_info) {
+            //alert("add_event_to_queue");
             // Must use an anonymous function here instead of passing process_event as the function to be queued            
             events_queue.queue("test_queue", function(next) {
                     process_event(event_info);
-                    setTimeout(next, 1000); // by default for testing wait one second in beween processing events
+                    //setTimeout(next, 1000); // by default for testing wait one second in beween processing events
+                    setTimeout(next, 500); // by default for testing wait half a second in beween processing events
                 }
             );
         }
         
         function process_event(event_info) {
+            //alert("process_event");
             //alert("Processing event" + event_info.location.longitude);
             //$("#photo_info").text(event_info.title + ", (" + event_info.location.latitude + ", " + event_info.location.longitude + "
             $("#photo_info").text("(" + event_info.location.latitude + ", " + event_info.location.longitude + ")");
             $("#queue_length").text(events_queue.queue("test_queue").length);
+            plot_point(event_info.location.latitude, event_info.location.longitude);
             
+        }
+        
+        function randBetween0And(n) {
+            return (Math.floor( Math.random() * n + 1));
         }
         
     </script>

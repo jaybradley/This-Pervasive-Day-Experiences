@@ -2,8 +2,10 @@ require 'sinatra'
 #require 'flickraw'
 require 'flickraw-cached'
 require 'json'
-require 'active_record'
-require 'sqlite3'
+#require 'active_record'
+#require 'sqlite3'
+require 'dm-core'
+require 'dm-migrations'
 
 enable :sessions
 
@@ -16,13 +18,24 @@ FlickRaw.shared_secret="c7fb1c04d893a03c"
 initial_latest_time_of_events_retrieved = "0"
 
 # connect to the database
-ActiveRecord::Base.establish_connection(
-  :adapter => 'sqlite3',
-  :database =>  'twitter_daemon_for_pervasive_puffersphere.sqlite3.db'
-)
+#DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/twitter_daemon_for_pervasive_puffersphere.sqlite3.db")
+#DataMapper.setup(:default, 'postgres://localhost/twitter_daemon_for_pervasive_puffersphere')
+DataMapper.setup(:default, 'mysql://jay_dev:norealpassword@localhost/twitter_daemon_for_pervasive_puffersphere')
+
+#ActiveRecord::Base.establish_connection(
+#  :adapter => 'sqlite3',
+#  :database =>  'twitter_daemon_for_pervasive_puffersphere.sqlite3.db'
+#)
 
 # define our rows in the database
-class Tweet < ActiveRecord::Base
+#class Tweet < ActiveRecord::Base
+#end
+class Tweet
+  include DataMapper::Resource
+  property :id, Serial # An auto-increment integer key
+  property :latitude, Float
+  property :longitude, Float
+  property :time, DateTime
 end
 
 get '/' do
@@ -39,8 +52,11 @@ get '/get_twitter_events' do
     # password .thispervasiveday
     
     # get every row in the table and delete them
-    tweets = Tweet.all()
-    Tweet.delete_all()
+    tweets = Tweet.all
+    #Tweet.delete_all()
+    #Tweet.all.destroy # this line stops it from working at all
+    # TODO Don't delete all the tweets so that multiple browsers can view the app at the same time
+    # TODO instead get the browser to send a time-stamp saying what the last tweet it received was dated as adn get only those tweets after that
     # turn the rows into json and return
     p tweets
     
@@ -48,6 +64,8 @@ get '/get_twitter_events' do
        p tweet
        events.push({:date_posted => tweet.time, :location => {:latitude => tweet.latitude, :longitude => tweet.longitude}})
     end
+    
+    tweets.destroy
     
     events.to_json
 end
@@ -89,3 +107,12 @@ get '/get_flickr_events' do
     #{:title => info.title, :location => {:latitude => geo.latitude, :longitude => geo.longitude}, :URL => FlickRaw.url_s(info)}.to_json
     events.to_json
 end
+
+
+#public function equirectangular_position(lat:Number, lng:Number):Point{
+#  var newX:Number = ((lng + 180) * (map_width  / 360));
+#  var newY:Number = (((lat * -1) + 90) * (map_height  / 180));
+#           
+#  return new Point(newX,newY);
+#}
+

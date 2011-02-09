@@ -1219,6 +1219,11 @@ VideoJS.player.newBehavior("currentTimeScrubber", function(element){
       if (this.videoWasPlaying) {
         this.play();
       }
+      // Added by Jay Bradley (j.bradley@napier.ac.uk) on 12/01/11. Relies on triggerEvent function added at bottom of file.
+      // check that video may have ended by being dragged to the end
+      if(this.currentTime() > (0.999 * this.duration())) {
+        triggerEvent(this.video, 'ended');
+      }
     },
     setCurrentTimeWithScrubber: function(event){
       var newProgress = _V_.getRelativePosition(event.pageX, this.currentScrubber);
@@ -1687,3 +1692,18 @@ window.VideoJS = window._V_ = VideoJS;
 
 // End self-executing function
 })(window);
+
+// Added by Jay Bradley (j.bradley@napier.ac.uk) on 12/01/11. From http://stackoverflow.com/questions/590289/javascript-event-that-fires-without-user-interaction
+function triggerEvent(element, eventName)
+{
+    if (document.createEvent)
+    {
+        var evt = document.createEvent('HTMLEvents');
+        evt.initEvent(eventName, true, true);
+
+        return element.dispatchEvent(evt);
+    }
+
+    if (element.fireEvent)
+        return element.fireEvent('on' + eventName);
+}
