@@ -43,14 +43,14 @@ public class CustomRenderer implements OpenGLRenderer {
 	 * other OpenGL specific things.
 	 */
 	public final void setupEnv(GL10 gl) {
-		gl.glEnable(GL10.GL_LIGHTING);
-		gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_AMBIENT, ambientLightBuffer1);
-		gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_DIFFUSE, diffuseLightBuffer1);
-		gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_SPECULAR, specularLightBuffer1);
-		gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_POSITION, lightPositionBuffer1);
-		gl.glEnable(GL10.GL_LIGHT1);
-		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-	    gl.glDisable(GL10.GL_TEXTURE_2D);
+		//gl.glEnable(GL10.GL_LIGHTING);
+		//gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_AMBIENT, ambientLightBuffer1);
+		//gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_DIFFUSE, diffuseLightBuffer1);
+		//gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_SPECULAR, specularLightBuffer1);
+		//gl.glLightfv(GL10.GL_LIGHT1, GL10.GL_POSITION, lightPositionBuffer1);
+		//gl.glEnable(GL10.GL_LIGHT1);
+		//gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+	    //gl.glDisable(GL10.GL_TEXTURE_2D);
 		initGL(gl);
 	}
 	
@@ -60,11 +60,11 @@ public class CustomRenderer implements OpenGLRenderer {
 	public final void initGL(GL10 gl) {
 		gl.glDisable(GL10.GL_COLOR_MATERIAL);
 		gl.glEnable(GL10.GL_CULL_FACE);
-		gl.glShadeModel(GL10.GL_SMOOTH);
+		//gl.glShadeModel(GL10.GL_SMOOTH);
 		gl.glDisable(GL10.GL_COLOR_MATERIAL);
-		gl.glEnable(GL10.GL_LIGHTING);
+		//gl.glEnable(GL10.GL_LIGHTING);
 		gl.glEnable(GL10.GL_CULL_FACE);
-		gl.glEnable(GL10.GL_DEPTH_TEST);
+		//gl.glEnable(GL10.GL_DEPTH_TEST);
 		gl.glEnable(GL10.GL_NORMALIZE);
 	}
 }

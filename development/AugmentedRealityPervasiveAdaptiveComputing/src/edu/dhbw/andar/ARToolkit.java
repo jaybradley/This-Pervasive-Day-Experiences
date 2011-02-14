@@ -280,7 +280,7 @@ public class ARToolkit {
 		private byte[] curFrame;
 		private boolean newFrame = false;
 		private int lastNumMarkers=0;
-		
+				
 		/**
 		 * 
 		 */
@@ -296,7 +296,9 @@ public class ARToolkit {
 		@Override
 		public synchronized void run() {			
 			setName("DetectMarkerWorker");
+			
 			while(true) {
+				
 				while(!newFrame) {
 					//spurious wakeups
 					try {

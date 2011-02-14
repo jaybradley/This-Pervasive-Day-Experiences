@@ -23,7 +23,7 @@ public class TexturedPlane {
 	private ByteBuffer indexBuffer;
 	
 	/** Our texture pointer */
-	private int numberOfFrames = 126;
+	private int numberOfFrames = 49;
 	//private int numberOfFrames = 2;
 	private int[] textures = new int[numberOfFrames];
 	private int currentFrame = 0;
@@ -95,10 +95,12 @@ public class TexturedPlane {
 		//gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]); // This is the texture that will need to be updated with each video frame
 		System.err.println("Using texture: " + Integer.toString(currentFrame));
 		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[currentFrame]); // This is the texture that will need to be updated with each video frame
-		currentFrame += 10;
+		currentFrame += 1;
 		if(currentFrame >= numberOfFrames) {
 			currentFrame = 0;
 		}
+		
+		
 		//Point to our buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
@@ -116,6 +118,7 @@ public class TexturedPlane {
 		//Disable the client state before leaving
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		
 	}
 	
 	/**
@@ -125,13 +128,14 @@ public class TexturedPlane {
 	 * @param context - The Activity context
 	 */
 	public void loadGLTexture(GL10 gl, Context context) {
+		
 		//textures[0] = loadTexture(gl, context, "/sdcard/ThisPervasiveDay/images/eye.bmp");
 		//textures[1] = loadTexture(gl, context, "/sdcard/ThisPervasiveDay/images/eye2.bmp");
 		//textures[0] = loadTexture(gl, context, "/sdcard/ThisPervasiveDay/images/frames/frame1.png");
 		//textures[1] = loadTexture(gl, context, "/sdcard/ThisPervasiveDay/images/frames/frame2.png");
 		String filename = "";
 		for(int frameNumber = 1; frameNumber <= numberOfFrames; frameNumber++) {
-			filename = "/sdcard/ThisPervasiveDay/images/frames/frame" + Integer.toString(frameNumber) + ".png";
+			filename = "/sdcard/ThisPervasiveDay/images/frames/" + Integer.toString(frameNumber) + ".png";
 			System.err.println("Loading: " + filename);
 			textures[frameNumber - 1] = loadTexture(gl, context, filename);
 			System.err.println("Texture: " + Integer.toString(frameNumber -1) + " filled");
@@ -159,8 +163,10 @@ public class TexturedPlane {
 	    // This will tell the BitmapFactory to not scale based on the device's pixel density:
 	    // (Thanks to Matthew Marshall for this bit)
 	    BitmapFactory.Options opts = new BitmapFactory.Options();
+	    opts.inPreferredConfig = Bitmap.Config.RGB_565;
 	    opts.inScaled = false;
 	    
+	    	    
 	    // Load up, and flip the texture:
 	    //Bitmap temp = BitmapFactory.decodeResource(context.getResources(), resource, opts);
 	    Bitmap temp = BitmapFactory.decodeFile(filename, opts);
@@ -170,12 +176,13 @@ public class TexturedPlane {
 	    gl.glBindTexture(GL10.GL_TEXTURE_2D, id);
 	    
 	    // Set all of our texture parameters:
-	    gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR_MIPMAP_NEAREST);
-	    gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR_MIPMAP_NEAREST);
-	    gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_REPEAT);
-	    gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_REPEAT);
-	    
+	    //gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_LINEAR_MIPMAP_NEAREST);
+	    //gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR_MIPMAP_NEAREST);
+	    //gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_REPEAT);
+	    //gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_REPEAT);
+	    	    
 	    // Generate, and load up all of the mipmaps:
+	    //GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bmp, 0);
 	    for(int level=0, height = bmp.getHeight(), width = bmp.getWidth(); true; level++) {
 	        // Push the bitmap onto the GPU:
 	        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, level, bmp, 0);

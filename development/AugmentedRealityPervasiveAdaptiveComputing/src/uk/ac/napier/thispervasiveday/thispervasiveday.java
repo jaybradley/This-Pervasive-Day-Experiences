@@ -23,6 +23,7 @@ public class thispervasiveday extends AndARActivity {
 			//register a object for each marker type
 			artoolkit = super.getArtoolkit();
 			
+			
 //			testVideoObject = new VideoObject("test", "patt.hiro", 80.0, new double[]{0,0});
 //			artoolkit.registerARObject(testVideoObject);
 //			testVideoObject = new VideoObject("test", "android.patt", 80.0, new double[]{0,0});
@@ -37,12 +38,12 @@ public class thispervasiveday extends AndARActivity {
 //			texturedCubeObject = new TexturedCubeObject(this, "test", "barcode.patt", 80.0, new double[]{0,0});
 //			artoolkit.registerARObject(texturedCubeObject);
 			
-			testVideoObject = new VideoObject(this, "test", "patt.hiro", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(testVideoObject);
+			//testVideoObject = new VideoObject(this, "test", "patt.hiro", 80.0, new double[]{0,0});
+			//artoolkit.registerARObject(testVideoObject);
 			testVideoObject = new VideoObject(this, "test", "android.patt", 80.0, new double[]{0,0});
 			artoolkit.registerARObject(testVideoObject);
-			testVideoObject = new VideoObject(this, "test", "barcode.patt", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(testVideoObject);
+			//testVideoObject = new VideoObject(this, "test", "barcode.patt", 80.0, new double[]{0,0});
+			//artoolkit.registerARObject(testVideoObject);
 
 			
 		} catch (AndARException ex){
