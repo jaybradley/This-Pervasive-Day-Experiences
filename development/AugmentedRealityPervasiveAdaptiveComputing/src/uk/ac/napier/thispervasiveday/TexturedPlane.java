@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.opengl.GLUtils;
+import android.os.SystemClock;
 
 public class TexturedPlane {
 
@@ -23,10 +24,12 @@ public class TexturedPlane {
 	private ByteBuffer indexBuffer;
 	
 	/** Our texture pointer */
-	private int numberOfFrames = 49;
+	private int numberOfFrames = 361;
 	//private int numberOfFrames = 2;
 	private int[] textures = new int[numberOfFrames];
+	private int targetFrameRefresh = 50; // 1000th of a second so 500 is half a second i.e. 2 frames per second
 	private int currentFrame = 0;
+	long lastDrawTime = 0;
 	
 	/** 
 	 * The initial vertex definition
@@ -93,13 +96,22 @@ public class TexturedPlane {
 	public void draw(GL10 gl) {
 		//Bind our only previously generated texture in this case
 		//gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[0]); // This is the texture that will need to be updated with each video frame
-		System.err.println("Using texture: " + Integer.toString(currentFrame));
-		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[currentFrame]); // This is the texture that will need to be updated with each video frame
-		currentFrame += 1;
+		
+		
+		//currentFrame += 1;
+		if(lastDrawTime == 0) {
+			lastDrawTime = SystemClock.elapsedRealtime();
+		}
+		long timeSinceLastFrameDraw = SystemClock.elapsedRealtime() - lastDrawTime;
+		long framesElapsed = timeSinceLastFrameDraw / targetFrameRefresh;
+		System.err.println("framesElapsed = " + framesElapsed + ", numberOfFrames = " + numberOfFrames);
+		currentFrame += framesElapsed;
 		if(currentFrame >= numberOfFrames) {
-			currentFrame = 0;
+			currentFrame =  currentFrame % numberOfFrames;
 		}
 		
+		System.err.println("Using texture: " + Integer.toString(currentFrame));
+		gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[currentFrame]); // This is the texture that will need to be updated with each video frame
 		
 		//Point to our buffers
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
@@ -118,6 +130,8 @@ public class TexturedPlane {
 		//Disable the client state before leaving
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+		
+		lastDrawTime = SystemClock.elapsedRealtime();
 		
 	}
 	
