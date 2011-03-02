@@ -6,19 +6,19 @@ var <%= params[:chart_name] %>_chart;
     chart: {
         renderTo: '<%= params[:chart_name] %>_chart_container',
         defaultSeriesType: 'spline',
-        marginRight: 130,
-        marginBottom: 25
+        marginRight: 0,
+        marginBottom: 0
     },
     credits: {
         enabled: false
     },
     title: {
         text: 'How do you feel about that?',
-        x: -20 //center
+        x: 0 //center
     },
     subtitle: {
         text: 'I wonder',
-        x: -20
+        x: 0
     },
     xAxis: {
         categories: ['Genetics', 'Environment', 'Robotics']

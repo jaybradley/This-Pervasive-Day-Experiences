@@ -1,6 +1,7 @@
 package uk.ac.napier.thispervasiveday;
 
 import javax.microedition.khronos.opengles.GL10;
+import uk.ac.napier.thispervasivedaycameratexture.R;
 
 import android.content.Context;
 import edu.dhbw.andar.ARObject;

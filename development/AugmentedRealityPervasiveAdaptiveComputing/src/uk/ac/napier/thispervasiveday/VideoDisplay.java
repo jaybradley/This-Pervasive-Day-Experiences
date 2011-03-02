@@ -1,6 +1,7 @@
 package uk.ac.napier.thispervasiveday;
 
 import java.io.IOException;
+import uk.ac.napier.thispervasivedaycameratexture.R;
 
 import android.content.Context;
 import android.hardware.Camera;

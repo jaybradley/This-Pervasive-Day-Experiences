@@ -4,11 +4,13 @@ import android.os.Bundle;
 import edu.dhbw.andar.ARToolkit;
 import edu.dhbw.andar.AndARActivity;
 import edu.dhbw.andar.exceptions.AndARException;
+import uk.ac.napier.thispervasivedaycameratexture.R;
 
 public class thispervasiveday extends AndARActivity {
     
-	CustomObject someObject;
+	//CustomObject someObject;
 	VideoObject testVideoObject;
+	CustomObject cubeObject;
 	TexturedCubeObject texturedCubeObject;
 	ARToolkit artoolkit;
 	
@@ -33,18 +35,37 @@ public class thispervasiveday extends AndARActivity {
 			
 //			texturedCubeObject = new TexturedCubeObject(this, "test", "patt.hiro", 80.0, new double[]{0,0});
 //			artoolkit.registerARObject(texturedCubeObject);
+
 //			texturedCubeObject = new TexturedCubeObject(this, "test", "android.patt", 80.0, new double[]{0,0});
-//			artoolkit.registerARObject(texturedCubeObject);
-//			texturedCubeObject = new TexturedCubeObject(this, "test", "barcode.patt", 80.0, new double[]{0,0});
+		//	artoolkit.registerARObject(texturedCubeObject);
+
+			//			texturedCubeObject = new TexturedCubeObject(this, "test", "barcode.patt", 80.0, new double[]{0,0});
 //			artoolkit.registerARObject(texturedCubeObject);
 			
 			//testVideoObject = new VideoObject(this, "test", "patt.hiro", 80.0, new double[]{0,0});
 			//artoolkit.registerARObject(testVideoObject);
-			testVideoObject = new VideoObject(this, "test", "android.patt", 80.0, new double[]{0,0});
-			artoolkit.registerARObject(testVideoObject);
+			
+			//testVideoObject = new VideoObject(this, "test", "android.patt", 80.0, new double[]{0,0});
+			//artoolkit.registerARObject(testVideoObject);
+			
 			//testVideoObject = new VideoObject(this, "test", "barcode.patt", 80.0, new double[]{0,0});
 			//artoolkit.registerARObject(testVideoObject);
 
+			
+			
+			
+			
+			// animated textured plane
+			//testVideoObject = new VideoObject(this, "test", "android.patt", 80.0, new double[]{0,0});
+			//artoolkit.registerARObject(testVideoObject);
+			
+			// cube with textured sides
+			//texturedCubeObject = new TexturedCubeObject(this, "test", "android.patt", 80.0, new double[]{0,0});
+			//artoolkit.registerARObject(texturedCubeObject);
+			
+			// cube with textured camera sides
+			cubeObject = new CustomObject("test", "android.patt", 80.0, new double[]{0,0});
+			artoolkit.registerARObject(cubeObject);
 			
 		} catch (AndARException ex){
 			//handle the exception, that means: show the user what happened

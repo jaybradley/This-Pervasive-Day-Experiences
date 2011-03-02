@@ -3,6 +3,7 @@ package uk.ac.napier.thispervasiveday;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
+import uk.ac.napier.thispervasivedaycameratexture.R;
 
 import edu.dhbw.andar.ARObject;
 import edu.dhbw.andar.pub.SimpleBox;

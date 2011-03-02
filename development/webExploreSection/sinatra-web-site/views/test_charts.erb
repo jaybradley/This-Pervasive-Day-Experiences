@@ -5,23 +5,28 @@
         <link type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/javascript/jquery.isotope.min.js"></script>
+        <script type="text/javascript" src="/javascript/highcharts/highcharts.js"></script>
         
-        <script src="/javascript/highcharts/highcharts.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/css/thisPervasiveDay.css" type="text/css" media="screen" /> 
 
     </head>
     <body>
 
+        <div id=layout_container>
 
-        <div id="test1_chart_container">
-        </div>
+            <div id="test1_chart_container" class="isotope_object pie_chart">
+            </div>
 
-        <div id="test2_chart_container" >
-        </div>
-        
-        <div id="test3_chart_container">
-        </div>
+            <div id="test2_chart_container" class="isotope_object pie_chart">
+            </div>
+            
+            <div id="test3_chart_container" class="isotope_object pie_chart">
+            </div>
 
-        <div id="test4_chart_container">
+            <div id="test4_chart_container" class="isotope_object line_chart">
+            </div>   
+                      
         </div>
 
     </body>
@@ -29,6 +34,12 @@
     
     <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
+
+        $('#layout_container').isotope({
+            itemSelector : '.isotope_object',
+            //itemSelector : '.element'
+            
+        });
 
         // load charts
         $.getScript('/charts/test1', function() {});

@@ -6,6 +6,7 @@ import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
+import uk.ac.napier.thispervasivedaycameratexture.R;
 
 import android.content.Context;
 

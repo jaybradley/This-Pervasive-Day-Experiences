@@ -7,6 +7,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
+import uk.ac.napier.thispervasivedaycameratexture.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -186,6 +187,7 @@ public class Cube {
 		//Get the texture from the Android resource directory
 		//InputStream is = context.getResources().openRawResource(R.drawable.nehe);
 		InputStream is = context.getResources().openRawResource(R.drawable.eye);
+		
 		Bitmap bitmap = null;
 		try {
 			//BitmapFactory is an Android graphics utility for images

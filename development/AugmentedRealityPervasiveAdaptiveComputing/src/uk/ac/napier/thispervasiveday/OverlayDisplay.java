@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
+import uk.ac.napier.thispervasivedaycameratexture.R;
 
 public class OverlayDisplay extends View {
 	 
@@ -37,7 +38,7 @@ public class OverlayDisplay extends View {
  
     // called by thread
     public void update() {
-    	//System.err.println("HERE 2");
+    	System.err.println("HERE 2");
         if(x < 100)
             x += 1;
         else
