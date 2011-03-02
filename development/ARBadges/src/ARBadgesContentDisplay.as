@@ -38,7 +38,8 @@ package {
 			// the image from the first detected camera will be used for marker detection.
 			// also pass an IFLARTrackerManager instance to communicate with a tracking library,
 			// and a reference to the Stage (required by some trackers).
-			this.flarManager = new FLARManager("resources/flar/flarConfig.xml", new FLARToolkitManager(), this.stage);
+			//this.flarManager = new FLARManager("resources/flar/flarConfig.xml", new FLARToolkitManager(), this.stage);
+			this.flarManager = new FLARManager("../resources/flar/flarConfig.xml", new FLARToolkitManager(), this.stage);
 			
 			// to switch tracking engines, pass a different IFLARTrackerManager into FLARManager.
 			// refer to this page for information on using different tracking engines:
