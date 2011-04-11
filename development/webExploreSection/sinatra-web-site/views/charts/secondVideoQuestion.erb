@@ -1,0 +1,32 @@
+var <%= params[:chart_name] %>_chart;
+
+//alert("secondVideoQuestion");
+
+<%= params[:chart_name] %>_chart = new Highcharts.Chart({
+    chart: {
+        renderTo: '<%= params[:chart_name] %>_chart_container',
+        defaultSeriesType: 'pie',
+        marginRight: 0,
+        marginBottom: 0
+    },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: 'Do you want pervasive adaptive computing?',
+        x: 0 //center
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.point.name +'</b><br/>'+ this.y +'%';
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Yes or No',
+        data: [
+            { name: 'Yes', y: <%= @yes_percentage %>, color: '#085788' },
+            { name: 'No', y: <%= @no_percentage %>, color: '#873908' }
+        ]
+    }]
+});

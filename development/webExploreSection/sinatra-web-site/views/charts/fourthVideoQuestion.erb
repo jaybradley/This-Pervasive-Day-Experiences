@@ -1,0 +1,65 @@
+// scenario preferences
+var <%= params[:chart_name] %>_chart;
+
+<%= params[:chart_name] %>_chart = new Highcharts.Chart({
+    chart: {
+        renderTo: '<%= params[:chart_name] %>_chart_container',
+        defaultSeriesType: 'scatter',
+        marginRight: 150,
+        marginBottom: 100,
+        backgroundColor: "#000000"
+    },
+    plotOptions: {
+         scatter: {
+            marker: {
+               radius: 20
+            },
+            dataLabels: {
+              color: "#fff"
+            }
+         }
+      },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: 'In what context is pervasive adaptive computing acceptable?',
+        x: 0 //center
+    },
+    subtitle: {
+        text: 'Your preferences',
+        x: 0
+    },
+    xAxis: {
+        categories: ['Personalised shopping','Automated childcare','Adaptive computer games','Adaptive, reflective homes','Security','Adaptive, reflective cars','Adaptive elderly healthcare','Biometrics for emergency healthcare'],
+        labels: {
+          align: "left",
+          rotation: 25
+        }
+    },
+    yAxis: {
+        title: {
+        text: 'Acceptance (%)'
+        },
+        plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+        }],
+        max: 100,
+        min: 0
+    },
+    tooltip: {
+        formatter: function() {
+            return this.y + "%";
+        }
+    },
+    legend: {
+      enabled: false
+    },
+    series: [{
+        name: 'Scenarios',
+            data: <%= @data %>,
+            color: '#085788'
+        }]
+});

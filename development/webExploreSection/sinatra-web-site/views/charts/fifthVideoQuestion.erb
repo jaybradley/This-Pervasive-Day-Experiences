@@ -1,0 +1,16 @@
+var paper = Raphael("<%= params[:chart_name] %>_chart_container", 800, 600);
+
+var fourthCircle = paper.circle(150, 480, 100).attr({fill: "#ef34ef", opacity: 0.5, "stroke-opacity": 0});
+var thirdCircle = paper.circle(620, 160, 140).attr({fill: "#ff0000", opacity: 0.5, "stroke-opacity": 0});
+var secondCircle = paper.circle(600, 400, 170).attr({fill: "#00ff00", opacity: 0.5, "stroke-opacity": 0});
+var firstCircle = paper.circle(300, 250, 230).attr({fill: "#0000ff", opacity: 0.5, "stroke-opacity": 0});
+
+var one = paper.text(300, 250, "<%= @oneText %>").attr({fill:'#000000', 'font-size':40});
+
+var two = paper.text(600, 400, "<%= @twoText %>").attr({fill:'#000000', 'font-size':30});
+
+var three = paper.text(620, 160, "<%= @threeText %>").attr({fill:'#000000', 'font-size':20});
+
+var four = paper.text(150, 480, "<%= @fourText %>").attr({fill:'#000000', 'font-size':16});
+
+paper.text(160, 50, "What you said about security").attr({fill:'#eeeeee', 'font-size': 24});

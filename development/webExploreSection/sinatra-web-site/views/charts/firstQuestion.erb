@@ -1,0 +1,38 @@
+var <%= params[:chart_name] %>_chart;
+
+<%= params[:chart_name] %>_chart = new Highcharts.Chart({
+    chart: {
+        renderTo: '<%= params[:chart_name] %>_chart_container',
+        defaultSeriesType: 'pie',
+        marginRight: 0,
+        marginBottom: 0,
+        backgroundColor: "#000000"
+    },
+    plotOptions: {
+      pie: {
+        dataLabels: {
+         color: "#fff"
+        }
+      }
+    },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: 'Is technology taking us to user heaven or user hell?',
+        x: 0 //center
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.point.name +'</b><br/>'+ this.y +'%';
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Heaven or Hell',
+        data: [
+            { name: 'Heaven', y: <%= @heaven_percentage %>, color: '#085788' },
+            { name: 'Hell', y: <%= @hell_percentage %>, color: '#873908' }
+        ]
+    }]
+});

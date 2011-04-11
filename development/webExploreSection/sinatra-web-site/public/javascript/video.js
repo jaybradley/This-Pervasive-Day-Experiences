@@ -531,7 +531,8 @@ VideoJS.player.extend({
     this.hideStylesCheckDiv();
     this.showPoster();
     if (this.video.paused !== false) { this.showBigPlayButtons(); }
-    if (this.options.controlsAtStart) { this.showControlBars(); }
+    //if (this.options.controlsAtStart) { this.showControlBars(); }
+    this.hideControlBars();
     this.positionAll();
   },
   /* Control Bar
@@ -588,7 +589,7 @@ VideoJS.player.extend({
     // Create the loading progress display
     this.loadProgressBar = _V_.createElement("div", { className: "vjs-load-progress" });
     this.progressHolder.appendChild(this.loadProgressBar);
-    this.activateElement(this.loadProgressBar, "loadProgressBar");
+    this.activateElement(this.loadProgressBar, "loadProgressBar"); // amended by Jay Bradley
 
     // Create the playing progress display
     this.playProgressBar = _V_.createElement("div", { className: "vjs-play-progress" });
@@ -1065,6 +1066,7 @@ VideoJS.player.newBehavior("controlBar", function(element){
       if (!this.options.controlsAtStart && !this.hasPlayed) { return; }
       this.each(this.controlBars, function(bar){
         bar.style.display = "block";
+        //bar.style.display = "none";  // amended by Jay Bradley
       });
     },
     // Place controller relative to the video's position (now just resizing bars)
@@ -1372,7 +1374,8 @@ VideoJS.player.newBehavior("bigPlayButton", function(element){
     bigPlayButtonsOnEnded: function(event){ this.showBigPlayButtons(); },
     showBigPlayButtons: function(){
       this.each(this.bigPlayButtons, function(element){
-        element.style.display = "block"; 
+        //element.style.display = "block";
+        element.style.display = "none";  
       });
     },
     hideBigPlayButtons: function(){

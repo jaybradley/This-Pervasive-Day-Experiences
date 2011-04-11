@@ -1,24 +1,36 @@
-<!--Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody -->
-<!--<video class="video-js" width="640" height="360" controls autoplay poster="graphics/<%= @video_filename %>Poster.png">-->
-<video id="the_video" class="video-js" width="640" height="360" controls poster="graphics/<%= @video_filename %>Poster.png">
-    <!--mp4 needs to go first due to bug in iPad which only recognises the first entry -->
-    <source src="video/<%= @video_filename %>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
-    <source src="video/<%= @video_filename %>.webm" type='video/webm; codecs="vp8, vorbis"' />
-    <source src="video/<%= @video_filename %>.ogv" type='video/ogg; codecs="theora, vorbis"' />
-    <!--Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. -->
-    <object class="vjs-flash-fallback" width="640" height="360" type="application/x-shockwave-flash" data="flowplayer/flowplayer-3.2.5.swf">
-        <param name="movie" value="flowplayer/flowplayer-3.2.5.swf" />
-        <param name="allowfullscreen" value="true" />
-        <!--This next line is problematic because it uses relative paths that could break if flowplayer, the videos or video stills are moved. Can't find a way to add nice paths to the flash string -->
-        <param name="flashvars" value='config={"playlist":["../graphics/<%= @video_filename %>Poster.png", {"url": "../video/<%= @video_filename %>.mp4","autoPlay":true,"autoBuffering":true}]}' />
-        <!--Image Fallback. Typically the same as the poster image. -->
-        <img src="graphics/videoScreenshot.png" width="640" height="360" alt="Poster Image"
-        title="No video playback capabilities." />
-    </object>
+<!-- http://www.blacktrash.org/flowplayer/graceful.html see source -->
+
+<video id="the_video" class="video-js" autoplay width="720" height="576">
+  <source src="video/<%= @video_filename %>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+<!--  <source src="video/<%= @video_filename %>.webm" type='video/webm; codecs="vp8, vorbis"' /> -->
+<!--  <source src="video/<%= @video_filename %>.ogv" type='video/ogg; codecs="theora, vorbis"' /> -->
+
+  <!--<div id="flashfallback" class="flashcontainer"> -->
+
+    <div id="player" class="vjs-flash-fallback" width="720" height="576"></div>
+
+    
+<!-- </div>-->
 </video>
-<!--Download links provided for devices that can't play video in the browser. -->
-<!--<p class="vjs-no-video"><strong>Download Video:</strong> -->
-<!--<a href="http://video-js.zencoder.com/oceans-clip.mp4">MP4</a>, -->
-<!--<a href="http://video-js.zencoder.com/oceans-clip.webm">WebM</a>, -->
-<!--<a href="http://video-js.zencoder.com/oceans-clip.ogv">Ogg</a><br> -->
-<!--</p> -->
+
+<script>
+
+  flowplayer("player", "flowplayer/flowplayer-3.2.7.swf", {
+    clip:  {
+        url: "../video/<%= @video_filename %>.mp4",
+        scaling: 'orig',
+        autoPlay: true,
+        autoBuffering: true,
+        onFinish: function() {
+          hideFlashVideo();
+          showQuestion();
+        },
+        onStart: function() {
+          showFlashVideo();
+        }
+
+    }
+    
+});
+</script>
+

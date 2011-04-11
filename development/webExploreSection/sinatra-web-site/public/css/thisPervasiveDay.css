@@ -4,8 +4,86 @@
 html,
 body {
   height: 100%;
+  background-color: #000000;
+  color: white;
+  /*font-family:'Distro Mix';*/
+  font-family:'Distro', Arial;
+  font-size: 20pt;
 }
 
+﻿/* @font-face kit by Fonts2u (http://www.fonts2u.com) */ @font-face {font-family:"Distro Mix";src:url("DISTROM_.eot?") format("eot"),url("/fonts/DISTROM_.woff") format("woff"),url("/fonts/DISTROM_.ttf") format("truetype"),url("/fonts/DISTROM_.svg#DistroMix") format("svg");font-weight:normal;font-style:normal;}
+
+﻿/* @font-face kit by Fonts2u (http://www.fonts2u.com) */ @font-face {font-family:"Distro";src:url("/fonts/DISTRO__.eot?") format("eot"),url("/fonts/DISTRO__.woff") format("woff"),url("/fonts/DISTRO__.ttf") format("truetype"),url("/fonts/DISTRO__.svg#Distro") format("svg");font-weight:normal;font-style:normal;}
+
+
+
+.jqmWindow {
+    font-size: 12pt;
+
+    display: none;
+    
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    
+    margin-left: -325px;
+    width: 650px;
+    height: 450px;
+    
+    /*background-color: #000;*/
+    color: #333;
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.jqmOverlay { background-color: #000; }
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html .jqmWindow {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+.draggable {
+  width: 250px;
+  height: 20px;
+  padding: 0.3em 0em;
+  margin: 0 5px 5px 0;
+  text-align: center;
+  left: 197px;
+}
+
+#securityQuestionDiv {
+  background-color: #000;
+}
+
+#scenarioQuestionDiv {
+  background-image:url('../graphics/appropriateOrNot.png');
+}
+
+.selectable_thing {
+  width: 250px;
+  padding: 0.5em 0.5em;
+  margin: 0 5px 5px 0;
+  text-align: center;
+  margin: 0px auto;
+}
+
+.unselected {
+  background: #555555;
+  color: black;
+}
+
+.selected {
+  background: #AAAAAA;
+  color: white;
+}
+
+#video-js-box {
+   margin: 0px auto;
+}
 
 .isotope_object {
   width: 320px;
@@ -19,21 +97,33 @@ body {
 }
 
 .isotope_object.pie_chart { 
-    background: #F00;
-    background: hsl(   0, 100%, 50%);
+    background: #000;
+    width: 380px;
+    height: 380px;
+    /*background: hsl(   0, 100%, 50%);*/
+    color: #000;
 }
 
 .isotope_object.line_chart {
-    width: 800px;
-    height: 320px;
-    background: #F80;
-    background: hsl(  36, 100%, 50%);
+    width: 750px;
+    height: 400px;
+    background: #000;
+    /*background: hsl(  36, 100%, 50%);*/
 }
 
+.isotope_object.selected_phrases {
+    width: 800px;
+    height: 600px;
+    background: #000;
+    
+    /*background: hsl(  36, 100%, 50%);*/
+}
 
 .isotope_object * {
   position: absolute;
   margin: 0;
+  font-family:'Distro';
+  color: #000;
 }
 
 .isotope_object .symbol {
@@ -41,7 +131,7 @@ body {
   top: 0.4em;
   font-size: 3.8em;
   line-height: 1.0em;
-  color: #FFF;
+  color: #000;
 }
 .isotope_object.large .symbol {
   font-size: 4.5em;

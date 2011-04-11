@@ -2,12 +2,19 @@
     <head>
         <title>This Pervasive Day</title>
 
-        <script src="javascript/video.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/javascript/video.js" type="text/javascript" charset="utf-8"></script>
         <link rel="stylesheet" href="css/video-js.css" type="text/css" media="screen" title="Video JS" charset="utf-8">
         
         <link type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="javascript/jqModal.js"></script>
+        
+        <script type="text/javascript" src="javascript/flowplayer-3.2.6.min.js"></script>
+        
+        
+        
+        <link rel="stylesheet" href="/css/thisPervasiveDay.css" type="text/css" media="screen" />
 
     </head>
     <body>
@@ -18,7 +25,75 @@
 
         <!-- User feedback forms -->
         <div id="user_feedback">
+        
         </div>
+        
+        <!-- content of scenraios question -->
+        <div id="scenarioQuestionDiv" class="jqmWindow">
+
+          <h3>In what context is pervasive adaptive computing acceptable?</h3>
+          
+
+          <div id="scenario1Draggable" class="draggable ui-widget-content">
+            Personalised shopping
+          </div>
+
+          <div id="scenario2Draggable" class="draggable ui-widget-content">
+            Automated childcare
+          </div>
+          
+          <div id="scenario3Draggable" class="draggable ui-widget-content">
+            Adaptive computer games
+          </div>
+          
+          <div id="scenario4Draggable" class="draggable ui-widget-content">
+            Adaptive, reflective homes
+          </div>
+          
+          <div id="scenario5Draggable" class="draggable ui-widget-content">
+            Security
+          </div>
+          
+          <div id="scenario6Draggable" class="draggable ui-widget-content">
+            Adaptive, reflective cars
+          </div>
+          
+          <div id="scenario7Draggable" class="draggable ui-widget-content">
+            Adaptive elderly healthcare
+          </div>
+          
+          <div id="scenario8Draggable" class="draggable ui-widget-content">
+            Biometrics for emergency healthcare
+          </div>
+          
+          Drag the options left or right. <a href="#" class="jqmClose" style="float: right;">Done</a>
+          
+        </div>
+
+        <!-- content of scenraios question -->
+        <div id="securityQuestionDiv" class="jqmWindow">
+        
+          <h3>Which of these statements would you agree with? Please select the statements you agree with.</h3>
+        
+            <div class="unselected selectable_thing">
+              We should be more careful about giving out our information
+            </div>
+
+            <div class="unselected selectable_thing">
+              Some loss of privacy is worth it for a safer world
+            </div>
+            
+            <div class="unselected selectable_thing">
+              I don't reall worry about technological privacy or security
+            </div>
+            
+            <div class="unselected selectable_thing">
+              I'm concerned about how computers could use data about me
+            </div>
+            
+          <a href="#" class="jqmClose" style="float: right;">Done</a>
+        </div>
+
 
     </body>
     
@@ -27,9 +102,55 @@
         var video_player;
         
         $(document).ready(function(){
-            current_video_index = 0;
-            nextVideo();  
+            current_video_index = -1;
+           
+            setupScenarioQuestion();
+            setupSecurityQuestion()
+            
+            //nextVideo();  // start with a video            
+            
+            firstQuestion(); // start with question
         });
+        
+        function setupScenarioQuestion() {
+          $('#scenarioQuestionDiv').jqm();
+          $( "#scenario1Draggable" ).draggable({ axis: "x", containment: "parent" });
+      		$( "#scenario2Draggable" ).draggable({ axis: "x", containment: "parent" });
+      		$( "#scenario3Draggable" ).draggable({ axis: "x", containment: "parent" });
+      		$( "#scenario4Draggable" ).draggable({ axis: "x", containment: "parent" });
+      		$( "#scenario5Draggable" ).draggable({ axis: "x", containment: "parent" });
+      		$( "#scenario6Draggable" ).draggable({ axis: "x", containment: "parent" });
+      		$( "#scenario7Draggable" ).draggable({ axis: "x", containment: "parent" });
+      		$( "#scenario8Draggable" ).draggable({ axis: "x", containment: "parent" });
+      		
+        }
+        
+        function setupSecurityQuestion() {
+          $('#securityQuestionDiv').jqm();
+          $('.unselected').click(function () { 
+            //alert("Selected");
+            $(this).toggleClass('selected unselected'); 
+
+          });
+        }
+        
+        function firstQuestion() {
+          $.ajax({
+            url: 'first_question',
+            dataType: 'script',
+            cache: false,
+            data: {},
+            success: function() {} // don't need to do anything on success as the script is automatically run
+          });
+        }
+        
+        function hideFlashVideo() {
+          $('#player').hide();
+        }
+        
+        function showFlashVideo() {
+          $('#player').show();
+        }
         
         function nextVideo() {
             //alert("nextVideo");
@@ -39,6 +160,7 @@
                 //$('#video-js-box').empty().append(data);
                 
                 video_player = VideoJS.setup("the_video");
+                //alert("Video should play now");
                 video_player.play();
                
                 // make a call to get the next bit of script from the server and then automatically execute it when it comes back
@@ -50,6 +172,14 @@
                   success: function() {} // don't need to do anything on success as the script is automatically run
                 });
             });
+       
+        function setupTimeout() {
+          
+        }
+        
+        function canceTimeout() {
+        
+        }
             
             
         }

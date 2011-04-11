@@ -1,0 +1,53 @@
+var <%= params[:chart_name] %>_chart;
+
+<%= params[:chart_name] %>_chart = new Highcharts.Chart({
+    chart: {
+        renderTo: '<%= params[:chart_name] %>_chart_container',
+        defaultSeriesType: 'pie',
+        marginRight: 0,
+        marginBottom: 0,
+        backgroundColor: "#000000"
+    },
+    plotOptions: {
+      pie: {
+        dataLabels: {
+         color: "#fff"
+        }
+      }
+    },
+    credits: {
+        enabled: false
+    },
+    title: {
+        text: 'Adaptive computing could make shopping easier for us',
+        x: 0 //center
+    },
+    subtitle: {
+        text: 'Would you like this?',
+        x: 0
+    },
+    tooltip: {
+        formatter: function() {
+            return '<b>'+ this.point.name +'</b><br/>'+ this.y +'%';
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Yes or no',
+        data: [
+            { name: 'Yes', y: <%= @yes_percentage %>, color: '#085788' },
+            { name: 'No', y: <%= @no_percentage %>, color: '#873908' }
+        ]
+    }]
+});
+
+
+
+
+
+
+
+
+
+
+

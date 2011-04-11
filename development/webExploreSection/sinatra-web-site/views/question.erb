@@ -1,43 +1,186 @@
 // What happens when the video finishes
 
-$('video').bind('ended', function() { $("#user_feedback").dialog("open"); } ); // just one call to this should suffice for each video ending
+//$('video').bind('ended', function() { $("#user_feedback").dialog("open"); } ); // just one call to this should suffice for each video ending
 
-<% if @video_filename == "test1" %> // ******************************************************
+$('video').bind('ended', function() { showQuestion(); } ); // just one call to this should suffice for each video ending
+
+//$('movie').bind('onFinish', function() {	alert("onFinish defined using Flowplayer API"); });
+
+<% if @video_filename == "firstQuestion" %> // ******************************************************
+
+  function showQuestion() {
+
+        setupTimeout();
+
+  /*    //alert("First (starting) question loaded autoOpen to true so don't have to wait for video to end.");*/
+
+      // show a question
+      $("#user_feedback").dialog({ width: 800, buttons: { "I'm excited about the impact that new technology could have on my life": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); nextVideo(); }, "I'm concerned about the impact of new technology on my life": function() { $(this).dialog("close"); submitQuestionResults("Hell"); nextVideo();} }, autoOpen: true, closeOnEscape: false, draggable: false, modal: true, title: 'Is new technology taking us to user heaven or user hell?', resizable: false, show: 'scale'} );
+
+  }
+
+  showQuestion();
+
+   // The anwer submission function can be set differently for each question here as it will change as the question changes
+  function submitQuestionResults(user_answer) {
+      cancelTimeout();
+      //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
+      $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+  }
+    
+<% elsif @video_filename == "first" %> // ******************************************************
+
+  function showQuestion() {
+    //alert("First video Question loaded autoOpen is false so should show at end of video");
 
     // show a question
-    $("#user_feedback").dialog({ buttons: { "Heaven": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); nextVideo(); }, "Hell": function() { $(this).dialog("close"); submitQuestionResults("Hell"); nextVideo();} }, autoOpen: false, closeOnEscape: false, draggable: false, modal: true, title: 'Heaven or Hell (first question)?', resizable: false, show: 'scale'} );
-
-    // The anwer submission function can be set differently for each question here as it will change as the question changes
-    function submitQuestionResults(user_answer) {
-        //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
-        $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-    }
+    $("#user_feedback").dialog({ width: 800, buttons: { "Yes": function() { $(this).dialog("close"); submitQuestionResults("Yes"); nextVideo(); }, "No": function() { $(this).dialog("close"); submitQuestionResults("No"); nextVideo();} }, autoOpen: true, closeOnEscape: false, draggable: false, modal: true, title: 'Do you want pervasive adaptive computing?', resizable: false, show: 'scale'} );
+  }
+  
+  // The anwer submission function can be set differently for each question here as it will change as the question changes
+  function submitQuestionResults(user_answer) {
+    //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
+      $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+  }
     
-<% elsif @video_filename == "test2" %> // ******************************************************
+<% elsif @video_filename == "third" %> // ******************************************************
+
+  function showQuestion() {
+//    alert("Second video Question loaded");
 
     // show a question
-    $("#user_feedback").dialog({ buttons: { "Heaven": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); nextVideo(); }, "Hell": function() { $(this).dialog("close"); submitQuestionResults("Hell"); nextVideo();} }, autoOpen: false, closeOnEscape: false, draggable: false, modal: true, title: 'Heaven or Hell (second question)?', resizable: false, show: 'scale'} );
+    $("#user_feedback").dialog({ width: 800, buttons: { "I like the idea that shops could personlise my shopping experience": function() { $(this).dialog("close"); submitQuestionResults("Yes"); nextVideo(); }, "I don't want shops knowing more information about me": function() { $(this).dialog("close"); submitQuestionResults("No"); nextVideo();} }, autoOpen: true, closeOnEscape: false, draggable: false, modal: true, title: 'Adaptive systems could make shopping easier for us', resizable: false, show: 'scale'} );
+  }
 
-    // The anwer submission function can be set differently for each question here as it will change as the question changes
-    function submitQuestionResults(user_answer) {
-        //alert("Submitting results for question: <%= @video_filename %>");
-        $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-    }
+  // The anwer submission function can be set differently for each question here as it will change as the question changes
+  function submitQuestionResults(user_answer) {
+      //alert("Submitting results for question: <%= @video_filename %>");
+      $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+  }
     
-<% elsif @video_filename == "test3" %> // ******************************************************
+<% elsif @video_filename == "fourth" %> // ******************************************************
 
+  function showQuestion() {
+
+    $('#scenarioQuestionDiv').jqmShow();
+    // onHide : fade the window out, remove overlay after fade. 
+    
+    $('#scenarioQuestionDiv').jqm({onHide:closeAndSubmitResults}); 
+
+  }
+
+  //showQuestion();
+
+  function closeAndSubmitResults(hash) {
+    hash.w.fadeOut('1000',function(){ hash.o.remove(); });
+    
+    // these may change check them
+    // min is 12
+    // middle is 212
+    // max is 389
+    
+    var min = 12.0;
+    var middle = 212.0;
+    var max = 405.0;
+    
+    json = {};
+        
+    $('.draggable').each(function(index) {
+      var pos = ($(this).position().left)
+      var percentagePos = (pos - 12.0) / (max - 12.0)
+      //var percentagePos = (212 / (389 + 5))
+      //alert(index + ': ' + pos + ": " + percentagePos + "%");
+      
+      //json[index] = ($(this).position().left - middle)
+      json[index] = percentagePos
+    });
+    
+    //console.log(JSON.stringify(json));
+    
+    submitQuestionResults(JSON.stringify(json));
+    nextVideo();
+  } 
+
+  // The anwer submission function can be set differently for each question here as it will change as the question changes
+  function submitQuestionResults(user_answer) {
+    //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
+    $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+  }
+
+// security/ control question    
+<% elsif @video_filename == "fifth" %> // ******************************************************
+
+  function showQuestion() {
+
+    $('#securityQuestionDiv').jqmShow();
+    // onHide : fade the window out, remove overlay after fade. 
+    
+    $('#securityQuestionDiv').jqm({onHide:closeAndSubmitResults}); 
+
+  }
+
+  //showQuestion();
+
+  function closeAndSubmitResults(hash) {
+    hash.w.fadeOut('1000',function(){ hash.o.remove(); });
+    
+    json = {};
+        
+    $('.selectable_thing').each(function(index) {
+      
+
+      if($(this).hasClass('selected')) {
+        json[index] = "selected";
+        //alert("selectable_thing: " + index + " is selected");
+      } else {
+        json[index] = "unselected";
+        //alert("selectable_thing: " + index + " is unselected");
+      }
+      
+    });
+    
+    //console.log(JSON.stringify(json));
+    
+    submitQuestionResults(JSON.stringify(json));
+    nextVideo();
+  } 
+
+  // The anwer submission function can be set differently for each question here as it will change as the question changes
+  function submitQuestionResults(user_answer) {
+    //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
+    $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+  }
+
+
+// end questions: same as opening question, which emotional words do you agree with, any further comments, then cue credits
+
+<% elsif @video_filename == "sixth" %> // ******************************************************
+
+  function showQuestion() {
+  
     // show a question
-    $("#user_feedback").dialog({ buttons: { "Yes": function() { $(this).dialog("close"); submitQuestionResults("Yes"); nextVideo(); }, "No": function() { $(this).dialog("close"); submitQuestionResults("No"); nextVideo();} }, autoOpen: false, closeOnEscape: false, draggable: false, modal: true, title: 'Yes or No (third question)?', resizable: false, show: 'scale'} );
+    $("#user_feedback").dialog({ width: 800, buttons: { "Heaven": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); nextVideo(); }, "Hell": function() { $(this).dialog("close"); submitQuestionResults("Hell"); nextVideo();} }, autoOpen: true, closeOnEscape: false, draggable: false, modal: true, title: 'After watching the film, what do you think about pervasive adaptive computing?', resizable: false, show: 'scale'} );
+  }
 
-    // The anwer submission function can be set differently for each question here as it will change as the question changes
-    function submitQuestionResults(user_answer) {
-        //alert("Submitting results for question: <%= @video_filename %>");
-        $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-    }
-    
+  // The anwer submission function can be set differently for each question here as it will change as the question changes
+  function submitQuestionResults(user_answer) {
+      //alert("Submitting results for question: <%= @video_filename %>");
+      $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
+  }
+
+<% elsif @video_filename == "seventh" %> // ******************************************************
+
+  //alert("Last video");
+
+  function showQuestion() {
+    $(window.location).attr('href', 'http://127.0.0.1:4567/charts');
+    //$.get("/redirect_to_charts");
+  }
 
 <% end %>
 
+                
+$('.ui-dialog-titlebar-close').remove();
 
 <% if @last_video == false %>
     current_video_index += 1;
