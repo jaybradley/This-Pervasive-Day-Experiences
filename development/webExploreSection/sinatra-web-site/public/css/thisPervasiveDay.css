@@ -13,9 +13,49 @@ body {
 
 ﻿/* @font-face kit by Fonts2u (http://www.fonts2u.com) */ @font-face {font-family:"Distro Mix";src:url("DISTROM_.eot?") format("eot"),url("/fonts/DISTROM_.woff") format("woff"),url("/fonts/DISTROM_.ttf") format("truetype"),url("/fonts/DISTROM_.svg#DistroMix") format("svg");font-weight:normal;font-style:normal;}
 
-﻿/* @font-face kit by Fonts2u (http://www.fonts2u.com) */ @font-face {font-family:"Distro";src:url("/fonts/DISTRO__.eot?") format("eot"),url("/fonts/DISTRO__.woff") format("woff"),url("/fonts/DISTRO__.ttf") format("truetype"),url("/fonts/DISTRO__.svg#Distro") format("svg");font-weight:normal;font-style:normal;}
+@font-face {font-family:"Distro";src:url("../fonts/DISTRO__.eot?") format("eot"),url("../fonts/DISTRO__.woff") format("woff"),url("../fonts/DISTRO__.ttf") format("truetype"),url("../fonts/DISTRO__.svg#Distro") format("svg");font-weight:normal;font-style:normal;}
 
 
+a:link {
+    color:#666666;
+    text-decoration: none;
+}      /* unvisited link */
+
+a:visited {
+    color:#666666;
+    text-decoration: none;
+}  /* visited link */
+
+a:active {
+    color:#666666;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color:#000066;
+}
+
+#layout_container {
+    width: 800px;
+    height: 650px;
+}
+
+#restartLink {
+    text-align: center;
+    font-size: 2.0em;
+    display: none;
+}
+
+#openingTitle {
+    text-align: center;
+    font-size: 3.0em;
+}
+
+#tagLine {
+    text-align: center;
+    font-size: 2.0em;
+}
 
 .jqmWindow {
     font-size: 12pt;
@@ -36,6 +76,12 @@ body {
     padding: 12px;
 }
 
+.questionHeaderInWhite {
+    font-size: 1.5em;
+    color: white;
+    text-align: center;
+}
+
 .jqmOverlay { background-color: #000; }
 
 /* Fixed posistioning emulation for IE6
@@ -46,8 +92,16 @@ body {
      top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
 }
 
+#videoBody {
+    overflow: hidden;
+}
+
+#chartsBody {
+    overflow: hidden;
+}
+
 .draggable {
-  width: 250px;
+  width: 255px;
   height: 20px;
   padding: 0.3em 0em;
   margin: 0 5px 5px 0;
@@ -68,7 +122,7 @@ body {
   padding: 0.5em 0.5em;
   margin: 0 5px 5px 0;
   text-align: center;
-  margin: 0px auto;
+  margin: 10px auto;
 }
 
 .unselected {
@@ -85,6 +139,10 @@ body {
    margin: 0px auto;
 }
 
+.chart {
+    display: none;
+}
+
 .isotope_object {
   width: 320px;
   height: 300px;
@@ -93,7 +151,13 @@ body {
   float: left;
   overflow: hidden;
   position: relative;
+
+  display: none;
   
+}
+
+#firstQuestion_chart_container {
+/*    display: inline;*/
 }
 
 .isotope_object.pie_chart { 
@@ -105,7 +169,7 @@ body {
 }
 
 .isotope_object.line_chart {
-    width: 750px;
+    width: 800px;
     height: 400px;
     background: #000;
     /*background: hsl(  36, 100%, 50%);*/

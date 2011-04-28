@@ -19,7 +19,7 @@ var <%= params[:chart_name] %>_chart;
         enabled: false
     },
     title: {
-        text: 'Do you want pervasive adaptive computing?',
+        text: 'Do you think we need pervasive, adaptive computing?',
         x: 0 //center
     },
     tooltip: {
@@ -29,7 +29,7 @@ var <%= params[:chart_name] %>_chart;
     },
     series: [{
         type: 'pie',
-        name: 'Heaven or Hell',
+        name: 'Yes or No',
         data: [
             { name: 'Yes', y: <%= @heaven_percentage %>, color: '#085788' },
             { name: 'No', y: <%= @hell_percentage %>, color: '#873908' }

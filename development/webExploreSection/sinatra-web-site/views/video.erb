@@ -1,9 +1,9 @@
 <!-- http://www.blacktrash.org/flowplayer/graceful.html see source -->
 
 <video id="the_video" class="video-js" autoplay width="720" height="576">
-  <source src="video/<%= @video_filename %>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
-<!--  <source src="video/<%= @video_filename %>.webm" type='video/webm; codecs="vp8, vorbis"' /> -->
-<!--  <source src="video/<%= @video_filename %>.ogv" type='video/ogg; codecs="theora, vorbis"' /> -->
+  <source src="idoc/video/<%= @video_filename %>.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"' />
+<!--  <source src="idoc/video/<%= @video_filename %>.webm" type='video/webm; codecs="vp8, vorbis"' /> -->
+<!--  <source src="idoc/video/<%= @video_filename %>.ogv" type='video/ogg; codecs="theora, vorbis"' /> -->
 
   <!--<div id="flashfallback" class="flashcontainer"> -->
 
@@ -15,9 +15,9 @@
 
 <script>
 
-  flowplayer("player", "flowplayer/flowplayer-3.2.7.swf", {
+  flowplayer("player", "idoc/flowplayer/flowplayer-3.2.7.swf", {
     clip:  {
-        url: "../video/<%= @video_filename %>.mp4",
+        url: "idoc/video/<%= @video_filename %>.mp4",
         scaling: 'orig',
         autoPlay: true,
         autoBuffering: true,

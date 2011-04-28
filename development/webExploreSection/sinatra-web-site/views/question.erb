@@ -9,12 +9,10 @@ $('video').bind('ended', function() { showQuestion(); } ); // just one call to t
 <% if @video_filename == "firstQuestion" %> // ******************************************************
 
   function showQuestion() {
-    setupTimeout();
   /*    //alert("First (starting) question loaded autoOpen to true so don't have to wait for video to end.");*/
 
       // show a question
-    $("#user_feedback").dialog({ width: 800, buttons: { "I'm excited about the impact that new technology could have on my life": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); }, "I'm concerned about the impact of new technology on my life": function() { $(this).dialog("close"); submitQuestionResults("Hell"); } }, autoOpen: true, closeOnEscape: false, draggable: false, modal: true, title: 'Is new technology taking us to user heaven or user hell?', resizable: false, show: 'scale'} );
-
+      $("#user_feedback").dialog({ width: 800, buttons: { "User heaven": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); nextVideo(); }, "User hell": function() { $(this).dialog("close"); submitQuestionResults("Hell"); nextVideo();} }, autoOpen: true, closeOnEscape: false, draggable: false, modal: false, title: 'Where do you feel that technology is taking society?', resizable: false, show: 'scale'} );
 
   }
 
@@ -22,59 +20,48 @@ $('video').bind('ended', function() { showQuestion(); } ); // just one call to t
 
    // The anwer submission function can be set differently for each question here as it will change as the question changes
   function submitQuestionResults(user_answer) {
+      $("#openingTitle").hide();
+      $("#tagLine").hide();
       //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
-      cancelTimeout();
-      $("#user_feedback").dialog("close");
-      $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-      nextVideo();
+      $.post("idoc/answer", { question: "<%= @video_filename %>", answer: user_answer } );
   }
     
 <% elsif @video_filename == "first" %> // ******************************************************
 
+   $("#restartLink").show();
+
   function showQuestion() {
     //alert("First video Question loaded autoOpen is false so should show at end of video");
-    
-    setupTimeout();
-    
+
     // show a question
-    $("#user_feedback").dialog({ width: 800, buttons: { "Yes": function() { $(this).dialog("close"); submitQuestionResults("Yes"); }, "No": function() { $(this).dialog("close"); submitQuestionResults("No"); } }, autoOpen: true, closeOnEscape: false, draggable: false, modal: true, title: 'Do you want pervasive adaptive computing?', resizable: false, show: 'scale'} );
+    $("#user_feedback").dialog({ width: 800, buttons: { "Yes": function() { $(this).dialog("close"); submitQuestionResults("Yes"); nextVideo(); }, "No": function() { $(this).dialog("close"); submitQuestionResults("No"); nextVideo();} }, autoOpen: true, closeOnEscape: false, draggable: false, modal: false, title: 'Do you think we need pervasive, adaptive computing?', resizable: false, show: 'scale'} );
   }
   
   // The anwer submission function can be set differently for each question here as it will change as the question changes
   function submitQuestionResults(user_answer) {
     //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
-      cancelTimeout();
-      $("#user_feedback").dialog("close");
-      $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-      nextVideo();
+      $.post("idoc/answer", { question: "<%= @video_filename %>", answer: user_answer } );
   }
     
 <% elsif @video_filename == "third" %> // ******************************************************
 
   function showQuestion() {
 //    alert("Second video Question loaded");
-    
-    setupTimeout();
-    
+
     // show a question
-    $("#user_feedback").dialog({ width: 800, buttons: { "I like the idea that shops could personlise my shopping experience": function() { $(this).dialog("close"); submitQuestionResults("Yes"); }, "I don't want shops knowing more information about me": function() { $(this).dialog("close"); submitQuestionResults("No"); } }, autoOpen: true, closeOnEscape: false, draggable: false, modal: true, title: 'Adaptive systems could make shopping easier for us', resizable: false, show: 'scale'} );
+    $("#user_feedback").dialog({ width: 800, buttons: { "I like the idea that shops could personalise my shopping experience": function() { $(this).dialog("close"); submitQuestionResults("Yes"); nextVideo(); }, "I don't want shops knowing more information about me": function() { $(this).dialog("close"); submitQuestionResults("No"); nextVideo();} }, autoOpen: true, closeOnEscape: false, draggable: false, modal: false, title: 'How do you feel about personalised adaptive shopping?', resizable: false, show: 'scale'} );
   }
 
   // The anwer submission function can be set differently for each question here as it will change as the question changes
   function submitQuestionResults(user_answer) {
       //alert("Submitting results for question: <%= @video_filename %>");
-      cancelTimeout();
-      $("#user_feedback").dialog("close");
-      $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-      nextVideo();
+      $.post("idoc/answer", { question: "<%= @video_filename %>", answer: user_answer } );
   }
     
 <% elsif @video_filename == "fourth" %> // ******************************************************
 
   function showQuestion() {
-    
-    setupTimeout();
-    
+
     $('#scenarioQuestionDiv').jqmShow();
     // onHide : fade the window out, remove overlay after fade. 
     
@@ -110,26 +97,20 @@ $('video').bind('ended', function() { showQuestion(); } ); // just one call to t
     
     //console.log(JSON.stringify(json));
     
-    
     submitQuestionResults(JSON.stringify(json));
-    
+    nextVideo();
   } 
 
   // The anwer submission function can be set differently for each question here as it will change as the question changes
   function submitQuestionResults(user_answer) {
     //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
-    cancelTimeout();
-    $('#scenarioQuestionDiv').jqmHide();
-    $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-    nextVideo();
+    $.post("idoc/answer", { question: "<%= @video_filename %>", answer: user_answer } );
   }
 
 // security/ control question    
 <% elsif @video_filename == "fifth" %> // ******************************************************
 
   function showQuestion() {
-
-    setupTimeout();
 
     $('#securityQuestionDiv').jqmShow();
     // onHide : fade the window out, remove overlay after fade. 
@@ -161,16 +142,13 @@ $('video').bind('ended', function() { showQuestion(); } ); // just one call to t
     //console.log(JSON.stringify(json));
     
     submitQuestionResults(JSON.stringify(json));
-
+    nextVideo();
   } 
 
   // The anwer submission function can be set differently for each question here as it will change as the question changes
   function submitQuestionResults(user_answer) {
     //alert("Submitting results for question: <%= @video_filename %> - " + user_answer);
-    cancelTimeout();
-    $('#securityQuestionDiv').jqmHide();
-    $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-    nextVideo();
+    $.post("idoc/answer", { question: "<%= @video_filename %>", answer: user_answer } );
   }
 
 
@@ -179,20 +157,15 @@ $('video').bind('ended', function() { showQuestion(); } ); // just one call to t
 <% elsif @video_filename == "sixth" %> // ******************************************************
 
   function showQuestion() {
-
-    setupTimeout();
   
     // show a question
-    $("#user_feedback").dialog({ width: 800, buttons: { "Heaven": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); }, "Hell": function() { $(this).dialog("close"); submitQuestionResults("Hell"); } }, autoOpen: true, closeOnEscape: false, draggable: false, modal: true, title: 'After watching the film, what do you think about pervasive adaptive computing?', resizable: false, show: 'scale'} );
+    $("#user_feedback").dialog({ width: 800, buttons: { "Heaven": function() { $(this).dialog("close"); submitQuestionResults("Heaven"); nextVideo(); }, "Hell": function() { $(this).dialog("close"); submitQuestionResults("Hell"); nextVideo();} }, autoOpen: true, closeOnEscape: false, draggable: false, modal: false, title: 'After watching the film, where do you think pervasive, adaptive computing is taking us?', resizable: false, show: 'scale'} );
   }
 
   // The anwer submission function can be set differently for each question here as it will change as the question changes
   function submitQuestionResults(user_answer) {
       //alert("Submitting results for question: <%= @video_filename %>");
-      cancelTimeout();
-      $("#user_feedback").dialog("close");
-      $.post("/answer", { question: "<%= @video_filename %>", answer: user_answer } );
-      nextVideo();
+      $.post("idoc/answer", { question: "<%= @video_filename %>", answer: user_answer } );
   }
 
 <% elsif @video_filename == "seventh" %> // ******************************************************
@@ -200,7 +173,7 @@ $('video').bind('ended', function() { showQuestion(); } ); // just one call to t
   //alert("Last video");
 
   function showQuestion() {
-    $(window.location).attr('href', 'http://127.0.0.1:4567/charts');
+    $(window.location).attr('href', 'http://companions.napier.ac.uk/idoc/charts');
     //$.get("/redirect_to_charts");
   }
 

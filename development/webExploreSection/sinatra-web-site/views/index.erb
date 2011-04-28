@@ -2,22 +2,29 @@
     <head>
         <title>This Pervasive Day</title>
 
-        <script src="/javascript/video.js" type="text/javascript" charset="utf-8"></script>
-        <link rel="stylesheet" href="css/video-js.css" type="text/css" media="screen" title="Video JS" charset="utf-8">
+        <script src="idoc/javascript/video.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="idoc/css/video-js.css" type="text/css" media="screen" title="Video JS" charset="utf-8">
         
-        <link type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
+        <link type="text/css" href="idoc/css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="javascript/jqModal.js"></script>
+        <script type="text/javascript" src="idoc/javascript/jqModal.js"></script>
         
-        <script type="text/javascript" src="javascript/flowplayer-3.2.6.min.js"></script>
+        <script type="text/javascript" src="idoc/javascript/flowplayer-3.2.6.min.js"></script>
         
         
         
-        <link rel="stylesheet" href="/css/thisPervasiveDay.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="idoc/css/thisPervasiveDay.css" type="text/css" media="screen" />
 
     </head>
-    <body>
+    <body id="videoBody">
+
+        <div id ="openingTitle">
+	  THIS PERVASIVE DAY
+	</div>
+	<div id="tagLine">
+	  an interactive documentary
+	</div>
 
         <!-- Use VideoJS http://videojs.com -->
         <div id="video-js-box">
@@ -31,7 +38,7 @@
         <!-- content of scenraios question -->
         <div id="scenarioQuestionDiv" class="jqmWindow">
 
-          <h3>In what context is pervasive adaptive computing acceptable?</h3>
+          <h3 class="questionHeaderInWhite">Where would you place these uses of pervasive, adaptive computing? Drag them left or right.</h3>
           
 
           <div id="scenario1Draggable" class="draggable ui-widget-content">
@@ -47,7 +54,7 @@
           </div>
           
           <div id="scenario4Draggable" class="draggable ui-widget-content">
-            Adaptive, reflective homes
+            Adaptive, smart homes
           </div>
           
           <div id="scenario5Draggable" class="draggable ui-widget-content">
@@ -55,7 +62,7 @@
           </div>
           
           <div id="scenario6Draggable" class="draggable ui-widget-content">
-            Adaptive, reflective cars
+            Adaptive, smart cars
           </div>
           
           <div id="scenario7Draggable" class="draggable ui-widget-content">
@@ -65,15 +72,15 @@
           <div id="scenario8Draggable" class="draggable ui-widget-content">
             Biometrics for emergency healthcare
           </div>
-          
-          Drag the options left or right. <a href="#" class="jqmClose" style="float: right;">Done</a>
+
+          <a href="#" class="jqmClose" style="float: right; font-size: 28pt;">Done</a>
           
         </div>
 
         <!-- content of scenraios question -->
         <div id="securityQuestionDiv" class="jqmWindow">
         
-          <h3>Which of these statements would you agree with? Please select the statements you agree with.</h3>
+          <h3 class="questionHeaderInWhite">Select all the statements you agree with</h3>
         
             <div class="unselected selectable_thing">
               We should be more careful about giving out our information
@@ -84,16 +91,20 @@
             </div>
             
             <div class="unselected selectable_thing">
-              I don't reall worry about technological privacy or security
+              I don't really worry about technological privacy or security
             </div>
             
             <div class="unselected selectable_thing">
               I'm concerned about how computers could use data about me
             </div>
             
-          <a href="#" class="jqmClose" style="float: right;">Done</a>
+          <a href="#" class="jqmClose" style="float: right; font-size: 28pt;">Done</a>
         </div>
 
+<p></p>
+	<div id="restartLink">
+	  <a href="http://companions.napier.ac.uk/idoc">restart</a>
+	</div>
 
     </body>
     
@@ -111,22 +122,6 @@
             
             firstQuestion(); // start with question
         });
-        
-        var timeout;
-        
-        function setupTimeout() {
-          console.log("setupTimeout");
-          timeout = setTimeout("autoForwardQuestion()", 5000);//30000);
-        }
-        
-        function cancelTimeout() {
-          console.log("cancelTimeout");
-          clearTimeout(timeout);
-        }
-        
-        function autoForwardQuestion() {
-          submitQuestionResults("AUTO_FORWARD_NO_ANSWER");
-        }
         
         function setupScenarioQuestion() {
           $('#scenarioQuestionDiv').jqm();
@@ -152,7 +147,7 @@
         
         function firstQuestion() {
           $.ajax({
-            url: 'first_question',
+            url: 'idoc/first_question',
             dataType: 'script',
             cache: false,
             data: {},
@@ -169,26 +164,26 @@
         }
         
         function nextVideo() {
-        //alert("nextVideo");
-        
-          $.get('next_video', {current_video_index: current_video_index}, function(data) {
-            $('#video-js-box').html(data);
-            //$('#video-js-box').empty().append(data);
+            //alert("nextVideo");
             
-            video_player = VideoJS.setup("the_video");
-            //alert("Video should play now");
-            video_player.play();
-           
-            // make a call to get the next bit of script from the server and then automatically execute it when it comes back
-            $.ajax({
-              url: 'next_question',
-              dataType: 'script',
-              cache: false,
-              data: {current_video_index: current_video_index},
-              success: function() {} // don't need to do anything on success as the script is automatically run
+            $.get('idoc/next_video', {current_video_index: current_video_index}, function(data) {
+                $('#video-js-box').html(data);
+                //$('#video-js-box').empty().append(data);
+                
+                video_player = VideoJS.setup("the_video");
+                //alert("Video should play now");
+                video_player.play();
+               
+                // make a call to get the next bit of script from the server and then automatically execute it when it comes back
+                $.ajax({
+                  url: 'idoc/next_question',
+                  dataType: 'script',
+                  cache: false,
+                  data: {current_video_index: current_video_index},
+                  success: function() {} // don't need to do anything on success as the script is automatically run
+                });
             });
-          });
-                   
+            
             
         }
         

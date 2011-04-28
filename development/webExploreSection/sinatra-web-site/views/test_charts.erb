@@ -2,36 +2,38 @@
     <head>
         <title>This Pervasive Day</title>
         
-        <link type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
+        <link type="text/css" href="/idoc/css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="/javascript/jquery.isotope.min.js"></script>
-        <script type="text/javascript" src="/javascript/raphael-min.js"></script>
-        <script type="text/javascript" src="/javascript/highcharts/highcharts.js"></script>
+        <script type="text/javascript" src="/idoc/javascript/jquery.isotope.min.js"></script>
+        <script type="text/javascript" src="/idoc/javascript/raphael-min.js"></script>
+        <script type="text/javascript" src="/idoc/javascript/highcharts/highcharts.js"></script>
         
-        <link rel="stylesheet" href="/css/thisPervasiveDay.css" type="text/css" media="screen" /> 
+        <link rel="stylesheet" href="/idoc/css/thisPervasiveDay.css" type="text/css" media="screen" /> 
 
     </head>
-    <body>
+    <body id="chartsBody">
+
+      <h2>How did everyone answer these questions?</h2>
 
         <div id=layout_container>
 
-            <div id="firstQuestion_chart_container" class="isotope_object pie_chart">
+            <div id="firstQuestion_chart_container">
             </div>
             
-            <div id="firstVideoQuestion_chart_container" class="isotope_object pie_chart">
+            <div id="firstVideoQuestion_chart_container" class="chart">
             </div>
 
-            <div id="thirdVideoQuestion_chart_container" class="isotope_object pie_chart">
+            <div id="thirdVideoQuestion_chart_container" class="chart">
             </div>   
                      
-            <div id="fourthVideoQuestion_chart_container" class="isotope_object line_chart">
+            <div id="fourthVideoQuestion_chart_container" class="chart">
             </div>   
             
-            <div id="fifthVideoQuestion_chart_container" class="isotope_object selected_phrases">
+            <div id="fifthVideoQuestion_chart_container" class="chart">
             </div>
 
-            <div id="sixthVideoQuestion_chart_container" class="isotope_object pie_chart">
+            <div id="sixthVideoQuestion_chart_container" class="chart">
             </div>
 
                       
@@ -41,31 +43,77 @@
     
     
     <script type="text/javascript" charset="utf-8">
+
+    var chartNumber = 1;
+
     $(document).ready(function(){
 
-        $('#layout_container').isotope({
-            itemSelector : '.isotope_object',
-            //itemSelector : '.element'
-            
-        });
+        //$('#layout_container').isotope({
+        //    itemSelector : '.isotope_object',
+        //    //itemSelector : '.element'
+        //    
+        //});
 
         // load charts
-        $.getScript('/charts/firstQuestion', function() {});
+        $.getScript('/idoc/charts/firstQuestion', function() {});
     
-        $.getScript('/charts/firstVideoQuestion', function() {});
+        $.getScript('/idoc/charts/firstVideoQuestion', function() {});
         
-        $.getScript('/charts/thirdVideoQuestion', function() {});
+        $.getScript('/idoc/charts/thirdVideoQuestion', function() {});
        
-        $.getScript('/charts/fourthVideoQuestion', function() {});
+        $.getScript('/idoc/charts/fourthVideoQuestion', function() {});
         
-        $.getScript('/charts/fifthVideoQuestion', function() {});
+        $.getScript('/idoc/charts/fifthVideoQuestion', function() {});
         
-        $.getScript('/charts/sixthVideoQuestion', function() {});
+        $.getScript('/idoc/charts/sixthVideoQuestion', function() {});
         
-        
+        showAChart();
+
+
+
+        //setTimeout("restartiDoc()", 300000);
+        //setTimeout("restartiDoc()", 10000);
     });
    
-   
+    function showAChart() {
+      
+      if(chartNumber == 1) {
+        //$('#firstQuestion_chart_container').toggle(); // starts shown
+      } else if(chartNumber == 2) {
+
+
+        $('#firstQuestion_chart_container').toggle('fast', function() {});
+        $('#firstVideoQuestion_chart_container').toggle('fast', function() {});
+      }  else if(chartNumber == 3) {
+        $('#firstVideoQuestion_chart_container').toggle('fast', function() {});
+        $('#thirdVideoQuestion_chart_container').toggle('fast', function() {});
+      } else if(chartNumber == 4) {
+        $('#thirdVideoQuestion_chart_container').toggle('fast', function() {});
+        $('#fourthVideoQuestion_chart_container').toggle('fast', function() {});
+      } else if(chartNumber == 5) {
+        $('#fourthVideoQuestion_chart_container').toggle('fast', function() {});
+        $('#fifthVideoQuestion_chart_container').toggle('fast', function() {});
+      } else if(chartNumber == 6) {
+        $('#fifthVideoQuestion_chart_container').toggle('fast', function() {});
+        $('#sixthVideoQuestion_chart_container').toggle('fast', function() {});
+      } else {
+        restartiDoc();
+      }
+
+      chartNumber += 1;
+
+      if(chartNumber == 7) {
+        setTimeout("showAChart()", 30000); // the last chart
+      } else {
+        setTimeout("showAChart()", 20000); // not the last chart
+      }
+
+    }
+
+    function restartiDoc() {
+      //alert("Restart");
+      $(window.location).attr('href', 'http://companions.napier.ac.uk/idoc');
+    }
    
          
     </script>
