@@ -205,34 +205,39 @@ end
 
 post '/answer' do
     # Open up the table for the question and write the answer to it. Maybe add such things as submission time and date
-    case params[:question]
     
-        when 'firstQuestion':
-            FirstQuestionAnswer.create("time" => Time.now, "answer" => params[:answer])
-        
-        when 'first':
-            #puts 'Received an answer: ' + params[:question] + ', ' + params[:answer]
-            FirstVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer])
-        
-        when 'third':
-            ThirdVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer])
-        
-        when 'fourth':
-            preferences = JSON.parse(params[:answer])
-            puts 'Fourth question answer: ' + params[:question] + ', ' + params[:answer].to_s + ", " + preferences["0"].to_s + "..."
-            FourthVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer], "one" => preferences["0"], "two" => preferences["1"], "three" => preferences["2"], "four" => preferences["3"], "five" => preferences["4"], "six" => preferences["5"], "seven" => preferences["6"], "eight" => preferences["7"])
-        
-        when 'fifth':
-            selectedness = JSON.parse(params[:answer])
-            puts 'Fifth question answer: ' + params[:question] + ', ' + params[:answer].to_s + ", " + selectedness["0"].to_s + "..."
-            FifthVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer], "one" => selectedness["0"], "two" => selectedness["1"], "three" => selectedness["2"], "four" => selectedness["3"])
-        
-        when 'sixth':
-            SixthVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer])
-        
-            
-    end
-   
+    puts 'answer: ' + params[:answer]
+    
+    if(params[:answer] != "AUTO_FORWARD_NO_ANSWER")
+    
+      case params[:question]
+      
+          when 'firstQuestion':
+              FirstQuestionAnswer.create("time" => Time.now, "answer" => params[:answer])
+          
+          when 'first':
+              #puts 'Received an answer: ' + params[:question] + ', ' + params[:answer]
+              FirstVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer])
+          
+          when 'third':
+              ThirdVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer])
+          
+          when 'fourth':
+              preferences = JSON.parse(params[:answer])
+              puts 'Fourth question answer: ' + params[:question] + ', ' + params[:answer].to_s + ", " + preferences["0"].to_s + "..."
+              FourthVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer], "one" => preferences["0"], "two" => preferences["1"], "three" => preferences["2"], "four" => preferences["3"], "five" => preferences["4"], "six" => preferences["5"], "seven" => preferences["6"], "eight" => preferences["7"])
+          
+          when 'fifth':
+              selectedness = JSON.parse(params[:answer])
+              puts 'Fifth question answer: ' + params[:question] + ', ' + params[:answer].to_s + ", " + selectedness["0"].to_s + "..."
+              FifthVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer], "one" => selectedness["0"], "two" => selectedness["1"], "three" => selectedness["2"], "four" => selectedness["3"])
+          
+          when 'sixth':
+              SixthVideoQuestionAnswer.create("time" => Time.now, "answer" => params[:answer])
+          
+              
+      end # case end
+    end # end of if no answer   
 end
 
 get '/redirect_to_charts' do

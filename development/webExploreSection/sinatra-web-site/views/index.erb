@@ -112,6 +112,22 @@
             firstQuestion(); // start with question
         });
         
+        var timeout;
+        
+        function setupTimeout() {
+          console.log("setupTimeout");
+          timeout = setTimeout("autoForwardQuestion()", 5000);//30000);
+        }
+        
+        function cancelTimeout() {
+          console.log("cancelTimeout");
+          clearTimeout(timeout);
+        }
+        
+        function autoForwardQuestion() {
+          submitQuestionResults("AUTO_FORWARD_NO_ANSWER");
+        }
+        
         function setupScenarioQuestion() {
           $('#scenarioQuestionDiv').jqm();
           $( "#scenario1Draggable" ).draggable({ axis: "x", containment: "parent" });
@@ -153,34 +169,26 @@
         }
         
         function nextVideo() {
-            //alert("nextVideo");
+        //alert("nextVideo");
+        
+          $.get('next_video', {current_video_index: current_video_index}, function(data) {
+            $('#video-js-box').html(data);
+            //$('#video-js-box').empty().append(data);
             
-            $.get('next_video', {current_video_index: current_video_index}, function(data) {
-                $('#video-js-box').html(data);
-                //$('#video-js-box').empty().append(data);
-                
-                video_player = VideoJS.setup("the_video");
-                //alert("Video should play now");
-                video_player.play();
-               
-                // make a call to get the next bit of script from the server and then automatically execute it when it comes back
-                $.ajax({
-                  url: 'next_question',
-                  dataType: 'script',
-                  cache: false,
-                  data: {current_video_index: current_video_index},
-                  success: function() {} // don't need to do anything on success as the script is automatically run
-                });
+            video_player = VideoJS.setup("the_video");
+            //alert("Video should play now");
+            video_player.play();
+           
+            // make a call to get the next bit of script from the server and then automatically execute it when it comes back
+            $.ajax({
+              url: 'next_question',
+              dataType: 'script',
+              cache: false,
+              data: {current_video_index: current_video_index},
+              success: function() {} // don't need to do anything on success as the script is automatically run
             });
-       
-        function setupTimeout() {
-          
-        }
-        
-        function canceTimeout() {
-        
-        }
-            
+          });
+                   
             
         }
         

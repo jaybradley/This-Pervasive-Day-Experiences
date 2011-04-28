@@ -3,9 +3,34 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   xmlns:local="*"
-			   width="640"
-			   height="480">
+			   width="1920"
+			   height="1080"
+			   backgroundColor="#111111"
+			   >
+	
+	<!-- old resolution 640x480 -->
+	<!-- resolution of mac is 1920x1080 -->
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		
+				  
 	</fx:Declarations>
+	
+	<fx:Style source="ARBadges.css">
+		
+	</fx:Style>
+	
+	<!--<mx:Image id="badgeWearer" x="150" verticalCenter="-55" source="ARBadges/../resources/womanInCream.png">-->
+	<mx:Image id="badgeWearer" x="150" verticalCenter="-55" source="../resources/womanInCream.png">
+		<mx:filters>
+			<mx:DropShadowFilter />
+		</mx:filters>
+	</mx:Image>
+	
+	<s:Label id="adaptiveText" text="Adaptive jewellery changes with the colour of your clothes" y="850" x="230" alpha="0">
+	</s:Label>
+	
+	<s:Label  id="biometricText" text="Biometric sensing could remotely take measurements of your body" y="950" x="230" alpha="0">
+	</s:Label>
+	
 </local:ARBadgesApplication>

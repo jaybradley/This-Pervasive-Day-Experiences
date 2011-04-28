@@ -1,0 +1,580 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xae19118f, pid=27495, tid=2923555696
+#
+# JRE version: 6.0_23-b05
+# Java VM: Java HotSpot(TM) Server VM (19.0-b09 mixed mode linux-x86 )
+# Problematic frame:
+# C  [libGL.so.1+0x5a18f]
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0xae747c00):  JavaThread "Animation Thread" [_thread_in_native, id=27525, stack(0xae3ce000,0xae41f000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=1 (SEGV_MAPERR), si_addr=0xae31e000
+
+Registers:
+EAX=0xae31e000, EBX=0x00000000, ECX=0xae192aa0, EDX=0xae7b8a00
+ESP=0xae41da80, EBP=0x00000001, ESI=0xae1d6c20, EDI=0xae75b790
+EIP=0xae19118f, CR2=0xae31e000, EFLAGS=0x00210206
+
+Register to memory mapping:
+
+EAX=0xae31e000
+0xae31e000 is pointing to unknown location
+
+EBX=0x00000000
+0x00000000 is pointing to unknown location
+
+ECX=0xae192aa0
+0xae192aa0: <offset 0x5baa0> in /usr/lib/nvidia/libGL.so.1 at 0xae137000
+
+EDX=0xae7b8a00
+0xae7b8a00 is pointing to unknown location
+
+ESP=0xae41da80
+0xae41da80 is pointing into the stack for thread: 0xae747c00
+"Animation Thread" prio=10 tid=0xae747c00 nid=0x6b85 runnable [0xae41d000]
+   java.lang.Thread.State: RUNNABLE
+
+EBP=0x00000001
+0x00000001 is pointing to unknown location
+
+ESI=0xae1d6c20
+0xae1d6c20: <offset 0x9fc20> in /usr/lib/nvidia/libGL.so.1 at 0xae137000
+
+EDI=0xae75b790
+0xae75b790 is pointing to unknown location
+
+
+Top of Stack: (sp=0xae41da80)
+0xae41da80:   00000000 00000000 ae41da88 f72739ae
+0xae41da90:   ae41dab0 00000021 aa45bf30 00000000
+0xae41daa0:   ae747c00 ae1f10a0 000100d8 00000001
+0xae41dab0:   00000000 00000000 ae192aa0 afe0f351
+0xae41dac0:   ae41daf8 afe105a8 00000000 af75e588
+0xae41dad0:   af75e588 ae747c00 00000021 aca85588
+0xae41dae0:   afe682b8 ae747c00 ae41db58 ae183619
+0xae41daf0:   ae6eed58 05a00011 05a00011 ae75b790 
+
+Instructions: (pc=0xae19118f)
+0xae19117f:   44 24 74 85 c0 74 2a 8b 87 a4 06 00 00 8b 40 24
+0xae19118f:   8b 00 f7 80 f8 c3 03 00 00 00 00 4e 0f 85 55 05 
+
+Stack: [0xae3ce000,0xae41f000],  sp=0xae41da80,  free space=318k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libGL.so.1+0x5a18f]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  com.sun.opengl.impl.x11.GLX.glXMakeCurrent(JJJ)Z+0
+j  com.sun.opengl.impl.x11.X11GLContext.makeCurrentImpl()I+78
+j  com.sun.opengl.impl.x11.X11OnscreenGLContext.makeCurrentImpl()I+32
+j  com.sun.opengl.impl.GLContextImpl.makeCurrent()I+56
+j  processing.opengl.PGraphicsOpenGL.detainContext()V+4
+j  processing.opengl.PGraphicsOpenGL.beginDraw()V+48
+j  processing.core.PApplet.handleDraw()V+36
+j  processing.core.PApplet.run()V+51
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0xaf108000 JavaThread "Thread-0" [_thread_blocked, id=27530, stack(0xae470000,0xae4c1000)]
+  0xaa117c00 JavaThread "SIGTERM handler" daemon [_thread_in_vm, id=27529, stack(0xaebd0000,0xaec21000)]
+  0xf6a09400 JavaThread "DestroyJavaVM" [_thread_blocked, id=27498, stack(0xf6b5e000,0xf6baf000)]
+  0xae7a5000 JavaThread "AWT-EventQueue-0" [_thread_blocked, id=27526, stack(0xae37d000,0xae3ce000)]
+=>0xae747c00 JavaThread "Animation Thread" [_thread_in_native, id=27525, stack(0xae3ce000,0xae41f000)]
+  0xae746000 JavaThread "AWT-Shutdown" [_thread_blocked, id=27524, stack(0xae41f000,0xae470000)]
+  0xae733800 JavaThread "AWT-XAWT" daemon [_thread_blocked, id=27522, stack(0xae4c1000,0xae512000)]
+  0xae6dac00 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=27521, stack(0xae527000,0xae578000)]
+  0xf6ab1c00 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=27519, stack(0xaea7d000,0xaeace000)]
+  0xf6aa6800 JavaThread "CompilerThread1" daemon [_thread_blocked, id=27518, stack(0xaeace000,0xaeb4f000)]
+  0xf6aa4800 JavaThread "CompilerThread0" daemon [_thread_blocked, id=27517, stack(0xaeb4f000,0xaebd0000)]
+  0xf6aa2c00 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=27513, stack(0xaec21000,0xaec72000)]
+  0xf6aa0400 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_native, id=27510, stack(0xaec72000,0xaecc3000)]
+  0xf6a97c00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=27508, stack(0xaecc7000,0xaed18000)]
+  0xf6a88c00 JavaThread "Finalizer" daemon [_thread_blocked, id=27506, stack(0xaed18000,0xaed69000)]
+  0xf6a87400 JavaThread "Reference Handler" daemon [_thread_blocked, id=27505, stack(0xaf02e000,0xaf07f000)]
+
+Other Threads:
+  0xf6a84c00 VMThread [stack: 0xaf07f000,0xaf100000] [id=27504]
+  0xf6ab3800 WatcherThread [stack: 0xae9fc000,0xaea7d000] [id=27520]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0xf6a077f8] Threads_lock - owner thread: 0xaa117c00
+
+Heap
+ PSYoungGen      total 19136K, used 11861K [0xde160000, 0xe06c0000, 0xf36b0000)
+  eden space 16448K, 55% used [0xde160000,0xdea58420,0xdf170000)
+  from space 2688K, 99% used [0xdf410000,0xdf6ad290,0xdf6b0000)
+  to   space 2688K, 0% used [0xdf170000,0xdf170000,0xdf410000)
+ PSOldGen        total 43712K, used 25450K [0xb36b0000, 0xb6160000, 0xde160000)
+  object space 43712K, 58% used [0xb36b0000,0xb4f8ab90,0xb6160000)
+ PSPermGen       total 16384K, used 11860K [0xaf6b0000, 0xb06b0000, 0xb36b0000)
+  object space 16384K, 72% used [0xaf6b0000,0xb0245398,0xb06b0000)
+
+Dynamic libraries:
+08048000-08052000 r-xp 00000000 08:02 262966                             /usr/java/jdk1.6.0_23/bin/java
+08052000-08053000 rwxp 00009000 08:02 262966                             /usr/java/jdk1.6.0_23/bin/java
+081b4000-084a0000 rwxp 00000000 00:00 0                                  [heap]
+41000000-410e3000 r-xp 00000000 08:02 30603                              /usr/lib/libstdc++.so.6.0.14
+410e3000-410e7000 r-xp 000e2000 08:02 30603                              /usr/lib/libstdc++.so.6.0.14
+410e7000-410e9000 rwxp 000e6000 08:02 30603                              /usr/lib/libstdc++.so.6.0.14
+410e9000-410ef000 rwxp 00000000 00:00 0 
+419a7000-419e8000 r-xp 00000000 08:02 30600                              /usr/lib/libjpeg.so.62.0.0
+419e8000-419e9000 rwxp 00040000 08:02 30600                              /usr/lib/libjpeg.so.62.0.0
+419e9000-419f9000 rwxp 00000000 00:00 0 
+44b5c000-44b79000 r-xp 00000000 08:02 19330                              /lib/ld-2.13.so
+44b79000-44b7a000 r-xp 0001c000 08:02 19330                              /lib/ld-2.13.so
+44b7a000-44b7b000 rwxp 0001d000 08:02 19330                              /lib/ld-2.13.so
+44b7d000-44d00000 r-xp 00000000 08:02 71109                              /lib/libc-2.13.so
+44d00000-44d01000 ---p 00183000 08:02 71109                              /lib/libc-2.13.so
+44d01000-44d03000 r-xp 00183000 08:02 71109                              /lib/libc-2.13.so
+44d03000-44d04000 rwxp 00185000 08:02 71109                              /lib/libc-2.13.so
+44d04000-44d07000 rwxp 00000000 00:00 0 
+44d09000-44d20000 r-xp 00000000 08:02 71123                              /lib/libpthread-2.13.so
+44d20000-44d21000 r-xp 00016000 08:02 71123                              /lib/libpthread-2.13.so
+44d21000-44d22000 rwxp 00017000 08:02 71123                              /lib/libpthread-2.13.so
+44d22000-44d24000 rwxp 00000000 00:00 0 
+44d26000-44d29000 r-xp 00000000 08:02 71269                              /lib/libdl-2.13.so
+44d29000-44d2a000 r-xp 00002000 08:02 71269                              /lib/libdl-2.13.so
+44d2a000-44d2b000 rwxp 00003000 08:02 71269                              /lib/libdl-2.13.so
+44d2d000-44d55000 r-xp 00000000 08:02 8682                               /lib/libm-2.13.so
+44d55000-44d56000 r-xp 00027000 08:02 8682                               /lib/libm-2.13.so
+44d56000-44d57000 rwxp 00028000 08:02 8682                               /lib/libm-2.13.so
+44d59000-44d60000 r-xp 00000000 08:02 14189                              /lib/librt-2.13.so
+44d60000-44d61000 r-xp 00006000 08:02 14189                              /lib/librt-2.13.so
+44d61000-44d62000 rwxp 00007000 08:02 14189                              /lib/librt-2.13.so
+44d64000-44d81000 r-xp 00000000 08:02 80203                              /lib/libselinux.so.1
+44d81000-44d82000 r-xp 0001c000 08:02 80203                              /lib/libselinux.so.1
+44d82000-44d83000 rwxp 0001d000 08:02 80203                              /lib/libselinux.so.1
+44d85000-44e92000 r-xp 00000000 08:02 23842                              /lib/libglib-2.0.so.0.2600.0
+44e92000-44e93000 rwxp 0010d000 08:02 23842                              /lib/libglib-2.0.so.0.2600.0
+44e95000-44e98000 r-xp 00000000 08:02 79586                              /lib/libgmodule-2.0.so.0.2600.0
+44e98000-44e99000 rwxp 00002000 08:02 79586                              /lib/libgmodule-2.0.so.0.2600.0
+44e9b000-44e9f000 r-xp 00000000 08:02 79584                              /lib/libgthread-2.0.so.0.2600.0
+44e9f000-44ea0000 rwxp 00003000 08:02 79584                              /lib/libgthread-2.0.so.0.2600.0
+44ea2000-44eb6000 r-xp 00000000 08:02 72451                              /lib/libz.so.1.2.5
+44eb6000-44eb7000 rwxp 00013000 08:02 72451                              /lib/libz.so.1.2.5
+44eb9000-44f07000 r-xp 00000000 08:02 79585                              /lib/libgobject-2.0.so.0.2600.0
+44f07000-44f08000 rwxp 0004d000 08:02 79585                              /lib/libgobject-2.0.so.0.2600.0
+44f08000-44f09000 rwxp 00000000 00:00 0 
+44f0b000-44f21000 r-xp 00000000 08:02 21463                              /lib/libresolv-2.13.so
+44f21000-44f22000 r-xp 00015000 08:02 21463                              /lib/libresolv-2.13.so
+44f22000-44f23000 rwxp 00016000 08:02 21463                              /lib/libresolv-2.13.so
+44f23000-44f25000 rwxp 00000000 00:00 0 
+44f27000-44f43000 r-xp 00000000 08:02 77478                              /lib/libgcc_s-4.5.1-20100924.so.1
+44f43000-44f44000 rwxp 0001b000 08:02 77478                              /lib/libgcc_s-4.5.1-20100924.so.1
+44f46000-4505d000 r-xp 00000000 08:02 80204                              /lib/libgio-2.0.so.0.2600.0
+4505d000-45060000 rwxp 00117000 08:02 80204                              /lib/libgio-2.0.so.0.2600.0
+450dc000-45103000 r-xp 00000000 08:02 80227                              /usr/lib/libpng12.so.0.44.0
+45103000-45104000 rwxp 00027000 08:02 80227                              /usr/lib/libpng12.so.0.44.0
+45106000-45126000 r-xp 00000000 08:02 80236                              /usr/lib/libgdk_pixbuf-2.0.so.0.2200.0
+45126000-45127000 rwxp 0001f000 08:02 80236                              /usr/lib/libgdk_pixbuf-2.0.so.0.2200.0
+45129000-45131000 r-xp 00000000 08:02 79984                              /usr/lib/libXrender.so.1.3.0
+45131000-45132000 rwxp 00008000 08:02 79984                              /usr/lib/libXrender.so.1.3.0
+45134000-45167000 r-xp 00000000 08:02 79629                              /usr/lib/libfontconfig.so.1.4.4
+45167000-45169000 rwxp 00032000 08:02 79629                              /usr/lib/libfontconfig.so.1.4.4
+4516b000-4529e000 r-xp 00000000 08:02 79598                              /usr/lib/libX11.so.6.3.0
+4529e000-452a2000 rwxp 00132000 08:02 79598                              /usr/lib/libX11.so.6.3.0
+452a4000-452c1000 r-xp 00000000 08:02 79589                              /usr/lib/libxcb.so.1.1.0
+452c1000-452c2000 rwxp 0001c000 08:02 79589                              /usr/lib/libxcb.so.1.1.0
+452c4000-452c6000 r-xp 00000000 08:02 79588                              /usr/lib/libXau.so.6.0.0
+452c6000-452c7000 rwxp 00001000 08:02 79588                              /usr/lib/libXau.so.6.0.0
+452c9000-452ef000 r-xp 00000000 08:02 79621                              /lib/libexpat.so.1.5.2
+452ef000-452f1000 rwxp 00025000 08:02 79621                              /lib/libexpat.so.1.5.2
+452f3000-45381000 r-xp 00000000 08:02 37012                              /usr/lib/libfreetype.so.6.6.0
+45381000-45385000 rwxp 0008d000 08:02 37012                              /usr/lib/libfreetype.so.6.6.0
+45387000-45389000 r-xp 00000000 08:02 80235                              /usr/lib/libXdamage.so.1.1.0
+45389000-4538a000 rwxp 00001000 08:02 80235                              /usr/lib/libXdamage.so.1.1.0
+4538c000-45393000 r-xp 00000000 08:02 80233                              /usr/lib/libXrandr.so.2.2.0
+45393000-45394000 rwxp 00006000 08:02 80233                              /usr/lib/libXrandr.so.2.2.0
+45396000-4544a000 r-xp 00000000 08:02 80228                              /usr/lib/libcairo.so.2.11000.2
+4544a000-4544c000 rwxp 000b3000 08:02 80228                              /usr/lib/libcairo.so.2.11000.2
+4544c000-4544e000 rwxp 00000000 00:00 0 
+45450000-45452000 r-xp 00000000 08:02 80234                              /usr/lib/libXcomposite.so.1.0.0
+45452000-45453000 rwxp 00001000 08:02 80234                              /usr/lib/libXcomposite.so.1.0.0
+45455000-454bb000 r-xp 00000000 08:02 70042                              /usr/lib/libpixman-1.so.0.18.4
+454bb000-454be000 rwxp 00066000 08:02 70042                              /usr/lib/libpixman-1.so.0.18.4
+454c0000-454c4000 r-xp 00000000 08:02 26135                              /usr/lib/libXfixes.so.3.1.0
+454c4000-454c5000 rwxp 00003000 08:02 26135                              /usr/lib/libXfixes.so.3.1.0
+45591000-455ae000 r-xp 00000000 08:02 80238                              /usr/lib/libatk-1.0.so.0.3209.1
+455ae000-455b0000 rwxp 0001d000 08:02 80238                              /usr/lib/libatk-1.0.so.0.3209.1
+455b2000-455b4000 r-xp 00000000 08:02 80231                              /usr/lib/libXinerama.so.1.0.0
+455b4000-455b5000 rwxp 00001000 08:02 80231                              /usr/lib/libXinerama.so.1.0.0
+455b7000-455c5000 r-xp 00000000 08:02 80232                              /usr/lib/libXi.so.6.1.0
+455c5000-455c6000 rwxp 0000d000 08:02 80232                              /usr/lib/libXi.so.6.1.0
+455c8000-455d8000 r-xp 00000000 08:02 80230                              /usr/lib/libXext.so.6.4.0
+455d8000-455d9000 rwxp 00010000 08:02 80230                              /usr/lib/libXext.so.6.4.0
+455db000-455e4000 r-xp 00000000 08:02 80197                              /usr/lib/libXcursor.so.1.0.2
+455e4000-455e5000 rwxp 00008000 08:02 80197                              /usr/lib/libXcursor.so.1.0.2
+49e1b000-49e47000 r-xp 00000000 08:02 47059                              /usr/lib/libpangoft2-1.0.so.0.2800.1
+49e47000-49e48000 rwxp 0002c000 08:02 47059                              /usr/lib/libpangoft2-1.0.so.0.2800.1
+49e4a000-49e91000 r-xp 00000000 08:02 46962                              /usr/lib/libpango-1.0.so.0.2800.1
+49e91000-49e93000 rwxp 00047000 08:02 46962                              /usr/lib/libpango-1.0.so.0.2800.1
+49e95000-49ea0000 r-xp 00000000 08:02 80351                              /usr/lib/libpangocairo-1.0.so.0.2800.1
+49ea0000-49ea1000 rwxp 0000a000 08:02 80351                              /usr/lib/libpangocairo-1.0.so.0.2800.1
+49ea3000-49f5a000 r-xp 00000000 08:02 82177                              /usr/lib/libgdk-x11-2.0.so.0.2200.0
+49f5a000-49f5d000 rwxp 000b7000 08:02 82177                              /usr/lib/libgdk-x11-2.0.so.0.2200.0
+49f5f000-4a3fb000 r-xp 00000000 08:02 82178                              /usr/lib/libgtk-x11-2.0.so.0.2200.0
+4a3fb000-4a401000 rwxp 0049c000 08:02 82178                              /usr/lib/libgtk-x11-2.0.so.0.2200.0
+4a401000-4a402000 rwxp 00000000 00:00 0 
+a8b11000-a8cf8000 rwxp 00000000 00:00 0 
+a96fe000-a9b00000 rwxp 00000000 00:00 0 
+a9b00000-a9bc1000 rwxp 00000000 00:00 0 
+a9bc1000-a9c00000 ---p 00000000 00:00 0 
+a9c00000-a9c8b000 rwxp 00000000 00:00 0 
+a9c8b000-a9d00000 ---p 00000000 00:00 0 
+a9d00000-a9dc1000 rwxp 00000000 00:00 0 
+a9dc1000-a9e00000 ---p 00000000 00:00 0 
+a9e00000-a9ec1000 rwxp 00000000 00:00 0 
+a9ec1000-a9f00000 ---p 00000000 00:00 0 
+a9f00000-a9fc1000 rwxp 00000000 00:00 0 
+a9fc1000-aa000000 ---p 00000000 00:00 0 
+aa000000-aa0c1000 rwxp 00000000 00:00 0 
+aa0c1000-aa100000 ---p 00000000 00:00 0 
+aa100000-aa1c1000 rwxp 00000000 00:00 0 
+aa1c1000-aa200000 ---p 00000000 00:00 0 
+aa200000-aa2c1000 rwxp 00000000 00:00 0 
+aa2c1000-aa300000 ---p 00000000 00:00 0 
+aa300000-aa3c1000 rwxp 00000000 00:00 0 
+aa3c1000-aa400000 ---p 00000000 00:00 0 
+aa400000-aa4c1000 rwxp 00000000 00:00 0 
+aa4c1000-aa500000 ---p 00000000 00:00 0 
+aa500000-aa5c1000 rwxp 00000000 00:00 0 
+aa5c1000-aa600000 ---p 00000000 00:00 0 
+aa600000-aa6c1000 rwxp 00000000 00:00 0 
+aa6c1000-aa700000 ---p 00000000 00:00 0 
+aa700000-aa7c1000 rwxp 00000000 00:00 0 
+aa7c1000-aa800000 ---p 00000000 00:00 0 
+aaa00000-aaac1000 rwxp 00000000 00:00 0 
+aaac1000-aab00000 ---p 00000000 00:00 0 
+aab22000-aab50000 r-xp 00000000 08:02 267380                             /usr/java/jdk1.6.0_23/jre/lib/i386/libjpeg.so
+aab50000-aab51000 rwxp 0002e000 08:02 267380                             /usr/java/jdk1.6.0_23/jre/lib/i386/libjpeg.so
+aab51000-aab54000 ---p 00000000 00:00 0 
+aab54000-aaba2000 rwxp 00000000 00:00 0 
+aac39000-aad1b000 rwxp 00000000 00:00 0 
+aad1b000-aadb2000 rwxs 001c5000 00:05 11574                              /dev/video0
+aadb2000-aae49000 rwxs 0012e000 00:05 11574                              /dev/video0
+aae49000-aaee0000 rwxs 00097000 00:05 11574                              /dev/video0
+aaee0000-aaf77000 rwxs 00000000 00:05 11574                              /dev/video0
+aaf77000-ab24b000 r-xp 00000000 08:02 1185960                            /usr/lib/atlas/libatlas.so.3.0
+ab24b000-ab24f000 rwxp 002d4000 08:02 1185960                            /usr/lib/atlas/libatlas.so.3.0
+ab24f000-ab25c000 r-xp 00000000 08:02 79568                              /usr/lib/libusb-1.0.so.0.0.0
+ab25c000-ab25d000 rwxp 0000c000 08:02 79568                              /usr/lib/libusb-1.0.so.0.0.0
+ab25d000-ab26c000 r-xp 00000000 08:02 79566                              /usr/lib/libraw1394.so.11.0.1
+ab26c000-ab26d000 rwxp 0000e000 08:02 79566                              /usr/lib/libraw1394.so.11.0.1
+ab26d000-ab28c000 r-xp 00000000 08:02 1185962                            /usr/lib/atlas/libcblas.so.3.0
+ab28c000-ab28d000 rwxp 0001e000 08:02 1185962                            /usr/lib/atlas/libcblas.so.3.0
+ab28d000-ab358000 r-xp 00000000 08:02 79562                              /usr/lib/libgfortran.so.3.0.0
+ab358000-ab359000 rwxp 000cb000 08:02 79562                              /usr/lib/libgfortran.so.3.0.0
+ab359000-ab35a000 rwxp 00000000 00:00 0 
+ab35a000-ab390000 r-xp 00000000 08:02 79570                              /usr/lib/libdc1394.so.22.1.4
+ab390000-ab391000 rwxp 00036000 08:02 79570                              /usr/lib/libdc1394.so.22.1.4
+ab391000-ab3d1000 rwxp 00000000 00:00 0 
+ab3d1000-ab518000 r-xp 00000000 08:02 71090                              /usr/lib/libxml2.so.2.7.7
+ab518000-ab51d000 rwxp 00146000 08:02 71090                              /usr/lib/libxml2.so.2.7.7
+ab51d000-ab51e000 rwxp 00000000 00:00 0 
+ab51e000-ab602000 r-xp 00000000 08:02 72657                              /usr/lib/libgstreamer-0.10.so.0.27.0
+ab602000-ab606000 rwxp 000e3000 08:02 72657                              /usr/lib/libgstreamer-0.10.so.0.27.0
+ab606000-ab607000 rwxp 00000000 00:00 0 
+ab607000-ab653000 r-xp 00000000 08:02 46478                              /usr/lib/libjasper.so.1.0.0
+ab653000-ab656000 rwxp 0004c000 08:02 46478                              /usr/lib/libjasper.so.1.0.0
+ab656000-ab65c000 rwxp 00000000 00:00 0 
+ab65c000-ab6bc000 r-xp 00000000 08:02 5720                               /usr/lib/libtiff.so.3.9.4
+ab6bc000-ab6be000 rwxp 00060000 08:02 5720                               /usr/lib/libtiff.so.3.9.4
+ab6be000-abb44000 r-xp 00000000 08:02 1185968                            /usr/lib/atlas/liblapack.so.3.0
+abb44000-abb46000 rwxp 00486000 08:02 1185968                            /usr/lib/atlas/liblapack.so.3.0
+abb46000-abc53000 rwxp 00000000 00:00 0 
+abc53000-abd7a000 r-xp 00000000 08:02 79574                              /usr/lib/libcvaux.so.2.1.0
+abd7a000-abd7e000 rwxp 00126000 08:02 79574                              /usr/lib/libcvaux.so.2.1.0
+abd7e000-ac06e000 r-xp 00000000 08:02 79572                              /usr/lib/libcv.so.2.1.0
+ac06e000-ac071000 rwxp 002f0000 08:02 79572                              /usr/lib/libcv.so.2.1.0
+ac071000-ac0f0000 rwxp 00000000 00:00 0 
+ac0f0000-ac2f9000 r-xp 00000000 08:02 79576                              /usr/lib/libcxcore.so.2.1.0
+ac2f9000-ac300000 rwxp 00208000 08:02 79576                              /usr/lib/libcxcore.so.2.1.0
+ac300000-ac3f5000 rwxp 00000000 00:00 0 
+ac3f5000-ac400000 ---p 00000000 00:00 0 
+ac402000-ac447000 r-xp 00000000 08:02 72649                              /usr/lib/libgstbase-0.10.so.0.27.0
+ac447000-ac448000 rwxp 00045000 08:02 72649                              /usr/lib/libgstbase-0.10.so.0.27.0
+ac448000-ac4a9000 r-xp 00000000 08:02 79580                              /usr/lib/libml.so.2.1.0
+ac4a9000-ac4ab000 rwxp 00060000 08:02 79580                              /usr/lib/libml.so.2.1.0
+ac4ab000-ac4ec000 r-xp 00000000 08:02 79578                              /usr/lib/libhighgui.so.2.1.0
+ac4ec000-ac4ef000 rwxp 00040000 08:02 79578                              /usr/lib/libhighgui.so.2.1.0
+ac4ef000-ac4f7000 r-xp 00000000 08:02 2242                               /usr/lib/libOpenCV.so
+ac4f7000-ac4f8000 rwxp 00008000 08:02 2242                               /usr/lib/libOpenCV.so
+ac4fc000-ac6fc000 rwxs 17ee59000 00:05 15328                             /dev/nvidia1
+ac800000-ac8f6000 rwxp 00000000 00:00 0 
+ac8f6000-ac900000 ---p 00000000 00:00 0 
+ac90b000-ac925000 r-xp 00000000 08:02 1185966                            /usr/lib/atlas/libf77blas.so.3.0
+ac925000-ac926000 rwxp 0001a000 08:02 1185966                            /usr/lib/atlas/libf77blas.so.3.0
+ac9aa000-aca85000 r-xp 00000000 08:05 5769495                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/libjogl.so
+aca85000-aca86000 rwxp 000da000 08:05 5769495                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/libjogl.so
+aca86000-ae0cb000 r-xp 00000000 08:02 1444606                            /usr/lib/nvidia/libnvidia-glcore.so.260.19.36
+ae0cb000-ae127000 rwxp 01645000 08:02 1444606                            /usr/lib/nvidia/libnvidia-glcore.so.260.19.36
+ae127000-ae137000 rwxp 00000000 00:00 0 
+ae137000-ae1d3000 r-xp 00000000 08:02 1444590                            /usr/lib/nvidia/libGL.so.260.19.36
+ae1d3000-ae1f1000 rwxp 0009b000 08:02 1444590                            /usr/lib/nvidia/libGL.so.260.19.36
+ae1f1000-ae200000 rwxp 00000000 00:00 0 
+ae200000-ae300000 rwxp 00000000 00:00 0 
+ae306000-ae311000 r-xp 00000000 08:02 74246                              /usr/lib/libgstvideo-0.10.so.0.22.0
+ae311000-ae312000 rwxp 0000a000 08:02 74246                              /usr/lib/libgstvideo-0.10.so.0.22.0
+ae312000-ae31d000 r-xp 00000000 08:02 74222                              /usr/lib/libgstapp-0.10.so.0.22.0
+ae31d000-ae31e000 rwxp 0000a000 08:02 74222                              /usr/lib/libgstapp-0.10.so.0.22.0
+ae364000-ae37d000 rwxs 00000000 00:04 0                                  /SYSV00000000 (deleted)
+ae37d000-ae380000 ---p 00000000 00:00 0 
+ae380000-ae3ce000 rwxp 00000000 00:00 0 
+ae3ce000-ae3d1000 ---p 00000000 00:00 0 
+ae3d1000-ae41f000 rwxp 00000000 00:00 0 
+ae41f000-ae422000 ---p 00000000 00:00 0 
+ae422000-ae470000 rwxp 00000000 00:00 0 
+ae470000-ae473000 ---p 00000000 00:00 0 
+ae473000-ae4c1000 rwxp 00000000 00:00 0 
+ae4c1000-ae4c4000 ---p 00000000 00:00 0 
+ae4c4000-ae512000 rwxp 00000000 00:00 0 
+ae512000-ae526000 r-xp 00000000 08:02 267388                             /usr/java/jdk1.6.0_23/jre/lib/i386/libnet.so
+ae526000-ae527000 rwxp 00013000 08:02 267388                             /usr/java/jdk1.6.0_23/jre/lib/i386/libnet.so
+ae527000-ae52a000 ---p 00000000 00:00 0 
+ae52a000-ae578000 rwxp 00000000 00:00 0 
+ae578000-ae5f1000 r-xp 00000000 08:02 267365                             /usr/java/jdk1.6.0_23/jre/lib/i386/libfontmanager.so
+ae5f1000-ae5fb000 rwxp 00078000 08:02 267365                             /usr/java/jdk1.6.0_23/jre/lib/i386/libfontmanager.so
+ae5fb000-ae600000 rwxp 00000000 00:00 0 
+ae600000-ae6fa000 rwxp 00000000 00:00 0 
+ae6fa000-ae700000 ---p 00000000 00:00 0 
+ae700000-ae7fc000 rwxp 00000000 00:00 0 
+ae7fc000-ae800000 ---p 00000000 00:00 0 
+ae800000-ae8fb000 rwxp 00000000 00:00 0 
+ae8fb000-ae900000 ---p 00000000 00:00 0 
+ae907000-ae94a000 r-xp 00000000 08:02 526137                             /usr/java/jdk1.6.0_23/jre/lib/i386/xawt/libmawt.so
+ae94a000-ae94c000 rwxp 00043000 08:02 526137                             /usr/java/jdk1.6.0_23/jre/lib/i386/xawt/libmawt.so
+ae94c000-ae94d000 rwxp 00000000 00:00 0 
+ae94d000-ae9d1000 r-xp 00000000 08:02 267360                             /usr/java/jdk1.6.0_23/jre/lib/i386/libawt.so
+ae9d1000-ae9d8000 rwxp 00084000 08:02 267360                             /usr/java/jdk1.6.0_23/jre/lib/i386/libawt.so
+ae9d8000-ae9fc000 rwxp 00000000 00:00 0 
+ae9fc000-ae9fd000 ---p 00000000 00:00 0 
+ae9fd000-aea7d000 rwxp 00000000 00:00 0 
+aea7d000-aea80000 ---p 00000000 00:00 0 
+aea80000-aeace000 rwxp 00000000 00:00 0 
+aeace000-aead1000 ---p 00000000 00:00 0 
+aead1000-aeb4f000 rwxp 00000000 00:00 0 
+aeb4f000-aeb52000 ---p 00000000 00:00 0 
+aeb52000-aebd0000 rwxp 00000000 00:00 0 
+aebd0000-aebd3000 ---p 00000000 00:00 0 
+aebd3000-aec21000 rwxp 00000000 00:00 0 
+aec21000-aec24000 ---p 00000000 00:00 0 
+aec24000-aec72000 rwxp 00000000 00:00 0 
+aec72000-aec75000 ---p 00000000 00:00 0 
+aec75000-aecc3000 rwxp 00000000 00:00 0 
+aecc3000-aecc6000 r-xp 00000000 08:02 267364                             /usr/java/jdk1.6.0_23/jre/lib/i386/libdt_socket.so
+aecc6000-aecc7000 rwxp 00003000 08:02 267364                             /usr/java/jdk1.6.0_23/jre/lib/i386/libdt_socket.so
+aecc7000-aecca000 ---p 00000000 00:00 0 
+aecca000-aed18000 rwxp 00000000 00:00 0 
+aed18000-aed1b000 ---p 00000000 00:00 0 
+aed1b000-aed69000 rwxp 00000000 00:00 0 
+aed69000-aef00000 r-xs 03022000 08:02 267423                             /usr/java/jdk1.6.0_23/jre/lib/rt.jar
+aef00000-aef2c000 rwxp 00000000 00:00 0 
+aef2c000-af000000 ---p 00000000 00:00 0 
+af00d000-af011000 rwxs 1ba348000 00:05 15328                             /dev/nvidia1
+af013000-af014000 r-xp 00000000 08:05 5769499                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/libjogl_awt.so
+af014000-af015000 rwxp 00000000 08:05 5769499                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/libjogl_awt.so
+af015000-af019000 r-xp 00000000 08:02 73675                              /usr/lib/libXxf86vm.so.1.0.0
+af019000-af01a000 rwxp 00004000 08:02 73675                              /usr/lib/libXxf86vm.so.1.0.0
+af01a000-af02e000 r-xs 00127000 08:05 5769481                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/core/ant.jar
+af02e000-af031000 ---p 00000000 00:00 0 
+af031000-af07f000 rwxp 00000000 00:00 0 
+af07f000-af080000 ---p 00000000 00:00 0 
+af080000-af100000 rwxp 00000000 00:00 0 
+af100000-af121000 rwxp 00000000 00:00 0 
+af121000-af200000 ---p 00000000 00:00 0 
+af201000-af202000 r-xp 00000000 08:02 267378                             /usr/java/jdk1.6.0_23/jre/lib/i386/libjawt.so
+af202000-af203000 rwxp 00000000 08:02 267378                             /usr/java/jdk1.6.0_23/jre/lib/i386/libjawt.so
+af203000-af237000 rwxp 00000000 00:00 0 
+af237000-af238000 ---p 00000000 00:00 0 
+af238000-af2b8000 rwxp 00000000 00:00 0 
+af2b8000-af2b9000 ---p 00000000 00:00 0 
+af2b9000-af34f000 rwxp 00000000 00:00 0 
+af34f000-af48f000 rwxp 00000000 00:00 0 
+af48f000-af497000 rwxp 00000000 00:00 0 
+af497000-af4af000 rwxp 00000000 00:00 0 
+af4af000-af4c5000 rwxp 00000000 00:00 0 
+af4c5000-af604000 rwxp 00000000 00:00 0 
+af604000-af618000 rwxp 00000000 00:00 0 
+af618000-af6af000 rwxp 00000000 00:00 0 
+af6af000-b06b0000 rwxp 00000000 00:00 0 
+b06b0000-b36b0000 rwxp 00000000 00:00 0 
+b36b0000-b6160000 rwxp 00000000 00:00 0 
+b6160000-de160000 rwxp 00000000 00:00 0 
+de160000-e06c0000 rwxp 00000000 00:00 0 
+e06c0000-f36b0000 rwxp 00000000 00:00 0 
+f36b0000-f36b1000 r-xp 00000000 08:02 1444612                            /usr/lib/nvidia/tls/libnvidia-tls.so.260.19.36
+f36b1000-f36b2000 rwxp 00000000 08:02 1444612                            /usr/lib/nvidia/tls/libnvidia-tls.so.260.19.36
+f36b2000-f36b9000 r-xp 00000000 08:02 267389                             /usr/java/jdk1.6.0_23/jre/lib/i386/libnio.so
+f36b9000-f36ba000 rwxp 00006000 08:02 267389                             /usr/java/jdk1.6.0_23/jre/lib/i386/libnio.so
+f36ba000-f36c3000 rwxp 00000000 00:00 0 
+f36c3000-f377a000 rwxp 00000000 00:00 0 
+f377a000-f39ba000 rwxp 00000000 00:00 0 
+f39ba000-f677a000 rwxp 00000000 00:00 0 
+f677a000-f6785000 r-xp 00000000 08:02 46079                              /lib/libnss_files-2.13.so
+f6785000-f6786000 r-xp 0000a000 08:02 46079                              /lib/libnss_files-2.13.so
+f6786000-f6787000 rwxp 0000b000 08:02 46079                              /lib/libnss_files-2.13.so
+f6787000-f6788000 rwxs aa060000 00:05 15328                              /dev/nvidia1
+f6788000-f6789000 r-xp 00000000 08:05 5769502                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/libgluegen-rt.so
+f6789000-f678a000 rwxp 00000000 08:05 5769502                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/libgluegen-rt.so
+f678a000-f678b000 r-xp 00000000 08:02 5287                               /usr/share/locale/en_GB/LC_MESSAGES/libc.mo
+f678b000-f678c000 r-xs 00002000 08:05 5769467                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/user/OpenCV/OpenCV.jar
+f678c000-f678e000 r-xs 00005000 08:05 12190035                           /mnt/data/development/libraries/ani/library/Ani.jar
+f678e000-f678f000 r-xs 00002000 08:05 5769479                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/core/ant-launcher.jar
+f678f000-f6794000 r-xp 00000000 08:02 46959                              /usr/lib/libXtst.so.6.1.0
+f6794000-f6795000 rwxp 00004000 08:02 46959                              /usr/lib/libXtst.so.6.1.0
+f6795000-f6797000 r-xs 00029000 08:05 5769475                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/core/core.jar
+f6797000-f67a2000 r-xs 00110000 08:05 5769497                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/jogl.jar
+f67a2000-f67aa000 rwxs 00000000 08:02 397957                             /tmp/hsperfdata_jay/27495
+f67aa000-f69aa000 r-xp 00000000 08:02 72301                              /usr/lib/locale/locale-archive
+f69aa000-f69e4000 r-xp 00000000 08:02 267379                             /usr/java/jdk1.6.0_23/jre/lib/i386/libjdwp.so
+f69e4000-f69e5000 rwxp 00039000 08:02 267379                             /usr/java/jdk1.6.0_23/jre/lib/i386/libjdwp.so
+f69e5000-f69fc000 r-xp 00000000 08:02 46069                              /lib/libnsl-2.13.so
+f69fc000-f69fd000 r-xp 00016000 08:02 46069                              /lib/libnsl-2.13.so
+f69fd000-f69fe000 rwxp 00017000 08:02 46069                              /lib/libnsl-2.13.so
+f69fe000-f6a00000 rwxp 00000000 00:00 0 
+f6a00000-f6aff000 rwxp 00000000 00:00 0 
+f6aff000-f6b00000 ---p 00000000 00:00 0 
+f6b00000-f6b01000 r-xs 0006c000 08:05 5769510                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/jogl-natives-macosx-universal.jar
+f6b01000-f6b02000 r-xs 00001000 08:05 5769507                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/gluegen-rt-natives-windows-amd64.jar
+f6b02000-f6b03000 r-xs 00001000 08:05 5769506                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/gluegen-rt-natives-linux-amd64.jar
+f6b03000-f6b05000 r-xs 00002000 08:05 5769505                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/opengl.jar
+f6b05000-f6b06000 r-xs 0000e000 08:05 5769503                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/jogl-natives-windows-i586.jar
+f6b06000-f6b07000 r-xs 00001000 08:05 5769501                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/gluegen-rt-natives-linux-i586.jar
+f6b07000-f6b08000 r-xs 00005000 08:05 5769494                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/gluegen-rt.jar
+f6b08000-f6b10000 rwxp 00000000 00:00 0 
+f6b10000-f6b28000 rwxp 00000000 00:00 0 
+f6b28000-f6b37000 r-xp 00000000 08:02 267397                             /usr/java/jdk1.6.0_23/jre/lib/i386/libzip.so
+f6b37000-f6b39000 rwxp 0000e000 08:02 267397                             /usr/java/jdk1.6.0_23/jre/lib/i386/libzip.so
+f6b39000-f6b5c000 r-xp 00000000 08:02 267373                             /usr/java/jdk1.6.0_23/jre/lib/i386/libjava.so
+f6b5c000-f6b5e000 rwxp 00023000 08:02 267373                             /usr/java/jdk1.6.0_23/jre/lib/i386/libjava.so
+f6b5e000-f6b61000 ---p 00000000 00:00 0 
+f6b61000-f6baf000 rwxp 00000000 00:00 0 
+f6baf000-f7314000 r-xp 00000000 08:02 526135                             /usr/java/jdk1.6.0_23/jre/lib/i386/server/libjvm.so
+f7314000-f7367000 rwxp 00765000 08:02 526135                             /usr/java/jdk1.6.0_23/jre/lib/i386/server/libjvm.so
+f7367000-f7787000 rwxp 00000000 00:00 0 
+f7787000-f778e000 r-xp 00000000 08:02 526127                             /usr/java/jdk1.6.0_23/jre/lib/i386/jli/libjli.so
+f778e000-f7790000 rwxp 00006000 08:02 526127                             /usr/java/jdk1.6.0_23/jre/lib/i386/jli/libjli.so
+f7790000-f7791000 r-xs 0003d000 08:05 5769493                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/jogl-natives-linux-amd64.jar
+f7791000-f7792000 r-xs 00001000 08:05 5769491                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/gluegen-rt-natives-macosx-ppc.jar
+f7792000-f7793000 r-xs 00037000 08:05 5769489                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/jogl-natives-linux-i586.jar
+f7793000-f7794000 r-xs 00001000 08:05 5769488                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/gluegen-rt-natives-windows-i586.jar
+f7794000-f7796000 r-xs 00020000 08:05 5769485                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/jogl-natives-macosx-ppc.jar
+f7796000-f7797000 r-xs 00012000 08:05 5769484                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/jogl-natives-windows-amd64.jar
+f7797000-f7798000 r-xs 00001000 08:05 5769482                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl/gluegen-rt-natives-macosx-universal.jar
+f7798000-f7799000 r-xs 00001000 08:05 5769474                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/net/net.jar
+f7799000-f779a000 r-xs 00002000 08:05 5769472                            /mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/video/video.jar
+f779a000-f779d000 r-xp 00000000 08:02 267391                             /usr/java/jdk1.6.0_23/jre/lib/i386/libnpt.so
+f779d000-f779e000 rwxp 00002000 08:02 267391                             /usr/java/jdk1.6.0_23/jre/lib/i386/libnpt.so
+f779e000-f77a4000 r-xp 00000000 08:02 526131                             /usr/java/jdk1.6.0_23/jre/lib/i386/native_threads/libhpi.so
+f77a4000-f77a5000 rwxp 00006000 08:02 526131                             /usr/java/jdk1.6.0_23/jre/lib/i386/native_threads/libhpi.so
+f77a5000-f77a6000 rwxp 00000000 00:00 0 
+f77a6000-f77a7000 r-xp 00000000 00:00 0 
+f77a7000-f77b2000 r-xp 00000000 08:02 267396                             /usr/java/jdk1.6.0_23/jre/lib/i386/libverify.so
+f77b2000-f77b3000 rwxp 0000b000 08:02 267396                             /usr/java/jdk1.6.0_23/jre/lib/i386/libverify.so
+f77b3000-f77b4000 rwxp 00000000 00:00 0 
+f77b4000-f77b5000 r-xp 00000000 00:00 0                                  [vdso]
+ffd13000-ffd35000 rwxp 00000000 00:00 0                                  [stack]
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:48210 -Djava.library.path=/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/video:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/net:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/opengl:/mnt/data/thisPervasiveDay/gitHubPulled/This-Pervasive-Day-Experiences/development/Identity/lib/base/core:/mnt/data/thisPervasiveDay/gitHubPulled/T-Dfile.encoding=UTF-8 
+java_command: identity.Identity
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/jay/bin:/mnt/data/manuallyInstalledStuff/android/android-sdk-linux_x86/tools:/mnt/data/manuallyInstalledStuff/android/android-sdk-linux_x86/platform-tools:/mnt/data/manuallyInstalledStuff/PhoneGap/phonegap-phonegap-android/bin
+USERNAME=jay
+LD_LIBRARY_PATH=/usr/java/jdk1.6.0_23/jre/lib/i386/server:/usr/java/jdk1.6.0_23/jre/lib/i386:/usr/java/jdk1.6.0_23/jre/../lib/i386:/usr/java/jdk1.6.0_23/jre/lib/i386/client:/usr/java/jdk1.6.0_23/jre/lib/i386:
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x6e1a10], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x6e1a10], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x5a37a0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x5a37a0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x5a37a0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x5a37a0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x5a6780], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x5a6360], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x5a6360], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x5a6360], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x5a6360], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Fedora release 14 (Laughlin)
+
+uname:Linux 2.6.35.11-83.fc14.x86_64 #1 SMP Mon Feb 7 07:06:44 UTC 2011 x86_64
+libc:glibc 2.13 NPTL 2.13 
+rlimit: STACK 8192k, CORE 0k, NPROC 1024, NOFILE 1024, AS infinity
+load average:1.14 1.20 1.16
+
+/proc/meminfo:
+MemTotal:        7935192 kB
+MemFree:         4700328 kB
+Buffers:          292760 kB
+Cached:          1510012 kB
+SwapCached:            0 kB
+Active:          1626936 kB
+Inactive:        1060252 kB
+Active(anon):     885384 kB
+Inactive(anon):     8796 kB
+Active(file):     741552 kB
+Inactive(file):  1051456 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:       5242876 kB
+SwapFree:        5242876 kB
+Dirty:               160 kB
+Writeback:             0 kB
+AnonPages:        884412 kB
+Mapped:           206400 kB
+Shmem:              9772 kB
+Slab:             297280 kB
+SReclaimable:     235992 kB
+SUnreclaim:        61288 kB
+KernelStack:        3664 kB
+PageTables:        42904 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     9210472 kB
+Committed_AS:    4732788 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      117920 kB
+VmallocChunk:   34359610124 kB
+HardwareCorrupted:     0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      109312 kB
+DirectMap2M:     8015872 kB
+
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 7935192k(4700328k free), swap 5242876k(5242876k free)
+
+vm_info: Java HotSpot(TM) Server VM (19.0-b09) for linux-x86 JRE (1.6.0_23-b05), built on Nov 12 2010 14:07:22 by "java_re" with gcc 3.2.1-7a (J2SE release)
+
+time: Thu Mar 31 16:18:23 2011
+elapsed time: 32 seconds
+

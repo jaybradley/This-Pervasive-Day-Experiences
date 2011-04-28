@@ -1,0 +1,16 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+@font-face {
+	embedAsCff: false;
+	src: url("../resources/distro.ttf");
+	fontFamily: distro;
+}
+
+
+s|Label {
+	font-family: distro;
+	font-size: 50;
+	color: #e7e3be;
+}

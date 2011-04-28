@@ -30,17 +30,20 @@ public class FictionalIdentityDisplay {
 	
 	public FictionalIdentityDisplay(PApplet parent) {
 		this.parent = parent;
-		position.x = (float)parent.width * 0.4f;
-		position.y = (float)parent.height * 0.4f;
+		position.x = (float)parent.width * 0.55f;
+		position.y = (float)parent.height * 0.30f;
 		
 		UUID uuid = UUID.randomUUID();
 		nameber = uuid.toString().substring(0, nameberLength);
-		occupation = occupationsStart[(int)parent.random(0, occupationsStart.length)] + " " + occupationsMiddle[(int)parent.random(0, occupationsMiddle.length)] + " " + occupationsEnd[(int)parent.random(0, occupationsEnd.length)] ;
+		occupation = occupationsStart[(int)parent.random(0, occupationsStart.length)] + " " + occupationsMiddle[(int)parent.random(0, occupationsMiddle.length)] + "\n" + occupationsEnd[(int)parent.random(0, occupationsEnd.length)] ;
 		
 		dateOfDeath = getRandomFutureDate();
 		
 		//font = parent.loadFont("Abstract-20.vlw"); rubbish
-		font = parent.loadFont("RetroVilleNC-20.vlw");
+		//font = parent.loadFont("RetroVilleNC-20.vlw");
+		//font = parent.loadFont("NimbusMonL-Regu-52.vlw");
+		font = parent.loadFont("NimbusMonL-Bold-52.vlw");
+		
 		//font = parent.loadFont("DejaVuSansCondensed-Bold-48.vlw");
 	    //font = parent.loadFont("DejaVuSansCondensed-18.vlw");
 		
@@ -53,14 +56,14 @@ public class FictionalIdentityDisplay {
 		//cdr.set(Calendar.HOUR_OF_DAY, 6);
 		//cdr.set(Calendar.MINUTE, 0);
 		//cdr.set(Calendar.SECOND, 0);
-		cdr.set(Calendar.YEAR, 2030);
+		cdr.set(Calendar.YEAR, 2100);
 		
 		long val1=cdr.getTimeInMillis();
 
 		//cdr.set(Calendar.HOUR_OF_DAY, 20);
 		//cdr.set(Calendar.MINUTE, 0);
 		//cdr.set(Calendar.SECOND, 0);
-		cdr.set(Calendar.YEAR, 2100);
+		cdr.set(Calendar.YEAR, 2400);
 		long val2 = cdr.getTimeInMillis();
 
 		Random r = new Random();
@@ -88,11 +91,11 @@ public class FictionalIdentityDisplay {
 	    parent.text("Date of death", position.x, position.y + (lineHeight * 2));
 	    parent.text(dateOfDeath, position.x + rightColumnOffset, position.y + (lineHeight * 2));*/
 		//parent.text("Your identity", position.x, position.y - (lineHeight * 2));
-	    parent.text("Nameber", position.x, position.y);
+	    parent.text("your code is", position.x, position.y);
 	    parent.text(nameber, position.x + rightColumnOffset, position.y + lineHeight);
-	    parent.text("Occupation", position.x, position.y +  + (lineHeight * 2));
-	    parent.text(occupation, position.x + rightColumnOffset, position.y  + (lineHeight * 3));
-	    parent.text("Date of death", position.x, position.y  + (lineHeight * 4));
-	    parent.text(dateOfDeath, position.x + rightColumnOffset, position.y + (lineHeight * 5));
+	    parent.text("your occupation will be", position.x, position.y +  + (lineHeight * 2.5f));
+	    parent.text(occupation, position.x + rightColumnOffset, position.y  + (lineHeight * 4f));
+	    parent.text("you will be expired on", position.x, position.y  + (lineHeight * 6.5f));
+	    parent.text(dateOfDeath, position.x + rightColumnOffset, position.y + (lineHeight * 8f));
 	}
 }

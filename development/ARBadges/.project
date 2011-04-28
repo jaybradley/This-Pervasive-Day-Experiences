@@ -17,6 +17,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>[source path] Flint_3_0_1_src</name>
+			<type>2</type>
+			<location>//VBOXSVR/data/development/libraries/Flint_3_0_1_src</location>
+		</link>
+		<link>
 			<name>[source path] src</name>
 			<type>2</type>
 			<location>//VBOXSVR/data/development/libraries/away3d_3_6_0/src</location>

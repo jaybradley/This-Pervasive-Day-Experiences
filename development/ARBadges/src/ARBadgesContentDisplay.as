@@ -23,7 +23,7 @@ package {
 	 */
 	public class ARBadgesContentDisplay extends Sprite {
 		private var flarManager:FLARManager;
-		private var simpleCubes:ARJewelry;
+		private var simpleCubes:ARJewelryManager;
 		
 		public function ARBadgesContentDisplay () {
 			//this.addEventListener(Event.ADDED_TO_STAGE, this.onAdded);
@@ -38,7 +38,8 @@ package {
 			// the image from the first detected camera will be used for marker detection.
 			// also pass an IFLARTrackerManager instance to communicate with a tracking library,
 			// and a reference to the Stage (required by some trackers).
-			//this.flarManager = new FLARManager("resources/flar/flarConfig.xml", new FLARToolkitManager(), this.stage);
+			
+			//this.flarManager = new FLARManager("ARBadges/../resources/flar/flarConfigOnServer.xml", new FLARToolkitManager(), this.stage); // on servers
 			this.flarManager = new FLARManager("../resources/flar/flarConfig.xml", new FLARToolkitManager(), this.stage);
 			
 			// to switch tracking engines, pass a different IFLARTrackerManager into FLARManager.
@@ -59,8 +60,8 @@ package {
 			this.flarManager.addEventListener(FLARMarkerEvent.MARKER_REMOVED, this.onMarkerRemoved);
 			
 			// framerate display helps to keep an eye on performance.
-			var framerateDisplay:FramerateDisplay = new FramerateDisplay();
-			this.addChild(framerateDisplay);
+			//var framerateDisplay:FramerateDisplay = new FramerateDisplay();
+			//this.addChild(framerateDisplay);
 			
 			this.flarManager.addEventListener(Event.INIT, this.onFlarManagerInited);
 		}
@@ -76,7 +77,8 @@ package {
 		private function onFlarManagerInited (evt:Event) :void {
 			this.flarManager.removeEventListener(ErrorEvent.ERROR, this.onFlarManagerError);
 			this.flarManager.removeEventListener(Event.INIT, this.onFlarManagerInited);
-			this.simpleCubes = new ARJewelry(this.flarManager, new Rectangle(0, 0, this.stage.stageWidth, this.stage.stageHeight));
+			//this.simpleCubes = new ARJewelryManager(this.flarManager, new Rectangle(0, 0, this.stage.stageWidth, this.stage.stageHeight));
+			this.simpleCubes = new ARJewelryManager(this.flarManager, new Rectangle(0, 0, 640, 480));
 			this.addChild(this.simpleCubes);
 			
 			// turn off interactivity in simpleCubes

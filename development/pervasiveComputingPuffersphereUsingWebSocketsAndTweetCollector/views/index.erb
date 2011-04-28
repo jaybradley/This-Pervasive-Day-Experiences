@@ -1,0 +1,153 @@
+<html>
+    <head>
+        <title>Pervasive PufferSphere</title>
+
+        
+        <link type="text/css" href="css/smoothness/jquery-ui-1.8.6.custom.css" rel="Stylesheet"/>        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/javascript/raphael-min.js"></script>
+
+    </head>
+    
+    <body>
+        <div id="map">
+        </div>     
+    </body>
+    
+    
+    <script type="text/javascript" charset="utf-8">
+        
+        //var mapContext;
+        var paper;
+        var lastX = -9999;
+        var lastY = -9999;
+        
+        $(document).ready(function(){
+            //alert("This Pervasive Day");
+            
+            // draw the map on the canvas
+            paper = Raphael("map", 1050, 1050);
+            //paper.image("graphics/panoramic.jpg", 0, 0, 1000, 500);
+            paper.image("graphics/circular_warp.jpg", 0, 0, 1050, 1050);
+    
+            // draw test lat long point from http://www.infoplease.com/ipa/A0001769.html
+            // try edinburgh at Edinburgh 55.9501755, -3.1875359
+            // new york 40.7143528, -74.0059731
+            // hawaii 21.0649811, -157.6718958
+            // oslo 59.913032, 10.752334
+            // cape town -33.924788, 18.429916
+            // wellington -40.937621,174.994821
+            // falklands -52, -60
+            // cape of good hope -54.74365,-65.385132            
+                
+            //plot_point(2,2);
+        });
+
+        
+        function plot_point(latitude, longitude) {
+        
+           //latitude = -18.437925;
+           //longitude =  -70.296021;
+           
+            // the map is equirectangular this ocnversion only works for that type of projection obviously
+            // http://labs.gerbenrobijn.nl/2010/08/30/as3-latitude-and-longitude-positioning-in-a-mercator-and-equirectangular-projection/
+            //var convertedX = ((longitude + 180.0) * (1000.0  / 360.0));
+            //var convertedY = (((latitude * -1.0) + 90.0) * (500.0  / 180.0));
+            
+            
+            // conversion to azimuthal
+            // latitude (-180 to 180) and longitude (-90 to 90) are in degrees
+            // azimuthal coordinates latitude (x) is now the distance from the center
+            // azimuthal coordinates longitude (y) is now the angle from GMT
+            var worldHeight = 1050;
+            var worldWidth = 1050;
+            
+            var fudge = 1.075;
+            
+            // north pole is 180 degrees
+            //var percentageLong = 360 / (longitude + 180);
+            var percentageLat = 1 - ((latitude + 90) / 180);
+            
+            var radius = worldWidth * 0.5;
+            var distanceFromNorthPole = (radius * percentageLat) * fudge;
+            var angleFromMeridian = (longitude / 360) * (2 * Math.PI);
+            
+            var azimuthalX = distanceFromNorthPole * Math.sin(angleFromMeridian);
+            var azimuthalY = distanceFromNorthPole * Math.cos(angleFromMeridian);
+            
+            //alert("percentageLat: " + percentageLat + ", radius: " + radius + ", " + azimuthalX + ", " + azimuthalY);
+            
+            convertedX = (-1 * azimuthalX) + (worldWidth / 2);
+            convertedY = (-1 * azimuthalY) + (worldHeight / 2);
+            
+            
+            
+            //alert(convertedX + ", " + convertedY);
+            
+            // add slight randomness so scircles don't appear exactly on top of each other when placenames are used e.g. lots of tweets from London which are all given the exact same coordinates
+            //convertedX += randBetween0And(8) - 4;
+            //convertedY += randBetween0And(8) - 4;
+            
+            
+            //mapContext.fillRect(convertedX - 2, convertedY - 2, 4, 4);
+            var p = paper.circle(convertedX, convertedY, 10 + randBetween0And(5));
+            p.attr("fill", "#fafafa");
+            p.attr("stroke", "#ffffff");
+            p.attr("fill-opacity", 0.5);
+            p.attr("stroke-opacity", 0.1);
+            p.attr("scale", 0.0);
+            p.animate({scale: 4}, 500, '<', function() {
+                    this.animate({scale: 1}, 2000, 'elastic', function() {
+                        this.animate({scale: 0, "fill-opacity": 0, "stroke-opacity": 0}, 200000, '>', function() {
+                            //this.hide();
+                            this.remove();
+                        });
+                    });
+                }
+            );
+            
+            // maybe draw some animation between the tweets
+            if(lastX != -9999) {
+                //l = paper.path("M " + lastX.toString() + " " + lastY.toString() + " " + convertedX + " " + convertedY);
+                //l.attr("stroke", "#ffffff");
+                //l.attr("stroke-opacity", 0.5);
+                //l.animate({rotation: 360}, 2000, 'bounce'); 
+            }
+            lastX = convertedX;
+            lastY = convertedY;
+        }
+        
+        function process_event(event_info) {
+            //alert("process_event");
+            //$("#event_info").text("(" + event_info.location.latitude + ", " + event_info.location.longitude + ")");
+            plot_point(event_info.location.latitude, event_info.location.longitude);
+            //plot_point(event_info.location, event_info.location);
+        }
+        
+        function randBetween0And(n) {
+            return (Math.floor( Math.random() * n + 1));
+        }
+        
+        // create a websocket connection
+        var socket = new WebSocket('ws://127.0.0.1:8080/');
+
+        socket.onopen = function() {
+            console.log("Socket opened");
+        };
+
+        // if we get a message then draw the tweet
+        socket.onmessage = function(message) {
+            var info = JSON.parse(message.data);
+            console.log(info);
+            process_event(info);
+        };
+
+        socket.onclose = function() {
+            console.log("Socket closed");
+        };
+        
+    </script>
+</html>
+
+
